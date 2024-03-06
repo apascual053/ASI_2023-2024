@@ -74,12 +74,7 @@ int menuser()
 		if(opt >= 0 && opt <= 7)
 		{
 			valido = 1;
-			if(opt != 0)
-			{
-				printf("\nRealizando el ejercicio %d...\n", opt);
-			} else {
-				printf("Saliendo del cliente...\n");
-			}
+			printf("\nRealizando el ejercicio %d...\n", opt);
 		} else {
 			printf("\nEl valor introducido no es valido. Intentelo de nuevo.\n");
 		}

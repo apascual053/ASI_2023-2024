@@ -1,0 +1,794 @@
+1709756789: COMMAND <cp ./monitor2 /tmp/.monitor2>
+1709756789: COMMAND <cp -f /tmp/.monitor2 ./monitor2>
+1709756789: COMMAND <uname -a >> .trazas-2/alumno-78955476H>
+Linux vbox 6.5.0-15-generic #15~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Jan 12 18:54:30 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+1709756789: COMMAND <ifconfig 2>&1 >> .trazas-2/alumno-78955476H>
+docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        ether 02:42:9d:e2:4b:62  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+        inet6 fe80::8029:8f10:da13:b502  prefixlen 64  scopeid 0x20<link>
+        ether 08:00:27:87:eb:59  txqueuelen 1000  (Ethernet)
+        RX packets 22231  bytes 22601174 (22.6 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 9683  bytes 2647948 (2.6 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 600  bytes 52292 (52.2 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 600  bytes 52292 (52.2 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+1709756790: COMMAND <echo -n 'MACHINE-ID: ' >> .trazas-2/alumno-78955476H>
+MACHINE-ID: 1709756790: COMMAND <cat /etc/machine-id >> .trazas-2/alumno-78955476H>
+9392ddf6d6994f31bb53dfaf525a6b69
+1709756790: 
+La máquina está ya identificada.
+1709756790: RX: <OK Accepted>
+1709756793: TX: <CHECKPWD c93S3uo28XWTfW>
+1709756793: RX: <NEW>
+1709756793: 
+***************************************************
+El usuario no tiene un password público registrado.
+Por favor, confirme el password para darlo de alta.
+[5mEl password debe recordarlo para futuras sesiones.[0m
+Utilice una secuencia de caracteres personal privados.
+En el servidor se guardará una versión encriptada.
+Si no está de acuerdo con el password que ha utilizado
+interrumpa el proceso y comience de nuevo el registro.
+Posteriormente será más complicado modificarlo. Tendrá.
+que ponerse en contacto con el administrador:
+                 armando.ferro@ehu.eus
+***************************************************
+1709756810: TX: <CREATEPWD c93S3uo28XWTfW>
+1709756810: [5m
+LOGIN: Registrado password público <c93S3uo28XWTfW>.[0m
+1709756810: RX: <DONE>
+1709756810: 
+********************************************
+           INICIANDO SESION
+********************************************
+1709756810: TX: <UUID e1951cc0-8b7b-430c-b579-f54c6b1db4ae>
+1709756810: RX: <REGISTERED>
+1709756810: COMMAND <find . -type f -newer .signature -print 2>/dev/null | awk -v pwd="`pwd`/.trazas-2" '{ if(index($0,pwd) != 1) print }' > /tmp/.asitmp>
+1709756810: COMMAND <cp ./client.? .trazas-2>
+1709756810: COMMAND <tar zcf save_file-78955476H .trazas-2 > /dev/null>
+1709756810: COMMAND <echo "\nopen u017633.bi.ehu.es\nuser anonymous anonymous\npassive\ncd LAB2024/practica-2\nput save_file-78955476H 78955476H-6-3-21h26\n" | 	  ftp -n 2>&1 > /dev/null>
+1709756832: COMMAND <test -f .trazas-2/.clean_bck.tz && rm .trazas-2/.clean_bck.tz>
+1709756884: 
+
+
+*************************************************
+
+          EJECUTANDO EL EJERCICIO 1.
+
+*************************************************
+
+
+1709756884: COMMAND <rm -f /tmp/fifo_monitor_1>
+1709756884: COMMAND <ls -al /tmp/fifo_monitor_1 >> .trazas-2/alumno-78955476H 2>&1>
+ls: cannot access '/tmp/fifo_monitor_1': No such file or directory
+1709756884: 
+-------------------------------------------------------
+CREANDO FIFO </tmp/fifo_monitor_1> PARA ENVIAR MENSAJE
+-------------------------------------------------------
+1709756884: COMMAND <ls -al /tmp/fifo_monitor_1 >> .trazas-2/alumno-78955476H 2>&1>
+prw------- 1 999701 ldap 0 mar  6 21:28 /tmp/fifo_monitor_1
+1709756884: 
+-------------------------------------------------------
+Esperando que el cliente abra el dispositivo </tmp/fifo_monitor_1> en 20 segundos
+-------------------------------------------------------
+1709756885: 
+------------------------------------------------------------------
+Enviando secreto <1> a través del dispositivo </tmp/fifo_monitor_1>
+------------------------------------------------------------------
+1709756885: 
+*************************************************
+:ok> CONTEXTO del ejercicio 1 preparado.
+*************************************************
+1709756885: COMMAND <who >> .trazas-2/alumno-78955476H>
+999701   tty1         2024-03-06 21:03 (:0)
+999701   pts/0        2024-03-06 21:03 (:0)
+999701   pts/1        2024-03-06 21:04 (:0)
+999701   pts/2        2024-03-06 21:07 (:0)
+999701   pts/3        2024-03-06 21:13 (:0)
+999701   pts/4        2024-03-06 21:26 (:0)
+1709756888: 
+
+
+*************************************************
+
+          EJECUTANDO EL EJERCICIO 2.
+
+*************************************************
+
+
+1709756888: COMMAND <ls -al /tmp/fifo_monitor_1 >> .trazas-2/alumno-78955476H 2>&1>
+prw------- 1 999701 ldap 0 mar  6 21:28 /tmp/fifo_monitor_1
+1709756888: COMMAND <ls -al /tmp/fifo_monitor_2 >> .trazas-2/alumno-78955476H 2>&1>
+ls: cannot access '/tmp/fifo_monitor_2': No such file or directory
+1709756888: 
+-------------------------------------------------------
+Esperando la creación del dispositivo </tmp/fifo_monitor_2>.
+-------------------------------------------------------
+1709756888: COMMAND <ls -al /tmp/fifo_monitor_2 >> .trazas-2/alumno-78955476H 2>&1>
+ls: cannot access '/tmp/fifo_monitor_2': No such file or directory
+1709756893: COMMAND <ls -al /tmp/fifo_monitor_2 >> .trazas-2/alumno-78955476H 2>&1>
+prw------- 1 999701 ldap 0 mar  6 21:28 /tmp/fifo_monitor_2
+1709756893: 
+-------------------------------------------------------
+ MONITOR: Abriendo el dispositivo </tmp/fifo_monitor_2> para leer.
+-------------------------------------------------------
+1709756893: 
+----------------------------------------------------------------------------------
+ Esperando 20 segundos a leer la respuesta al ejercicio <1> en el dispositivo </tmp/fifo_monitor_2>.
+----------------------------------------------------------------------------------
+1709756893: 
+[5m********************************************
+:OK> RESPUESTA ADECUADA. El secreto <1> es <292>.
+********************************************[0m
+1709756896: 
+-------------------------------------------------------
+Esperando que el cliente abra el dispositivo </tmp/fifo_monitor_1> en 20 segundos
+-------------------------------------------------------
+1709756896: 
+------------------------------------------------------------------
+Enviando secreto <2> a través del dispositivo </tmp/fifo_monitor_1>
+------------------------------------------------------------------
+1709756896: 
+----------------------------------------------------------------------------------
+ Esperando 20 segundos a leer la respuesta al ejercicio <2> en el dispositivo </tmp/fifo_monitor_2>.
+----------------------------------------------------------------------------------
+1709756896: 
+[5m********************************************
+:OK> RESPUESTA ADECUADA. El secreto <2> es <457>.
+********************************************[0m
+1709756896: 
+*************************************************
+:ok> CONTEXTO del ejercicio 2 preparado.
+*************************************************
+1709756896: COMMAND <who >> .trazas-2/alumno-78955476H>
+999701   tty1         2024-03-06 21:03 (:0)
+999701   pts/0        2024-03-06 21:03 (:0)
+999701   pts/1        2024-03-06 21:04 (:0)
+999701   pts/2        2024-03-06 21:07 (:0)
+999701   pts/3        2024-03-06 21:13 (:0)
+999701   pts/4        2024-03-06 21:26 (:0)
+1709756904: COMMAND <find . -type f -newer .signature -print 2>/dev/null | awk -v pwd="`pwd`/.trazas-2" '{ if(index($0,pwd) != 1) print }' > /tmp/.asitmp>
+1709756904: COMMAND <cp ./client.? .trazas-2>
+1709756904: COMMAND <tar zcf save_file-78955476H .trazas-2 > /dev/null>
+1709756904: COMMAND <echo "\nopen u017633.bi.ehu.es\nuser anonymous anonymous\npassive\ncd LAB2024/practica-2\nput save_file-78955476H 78955476H-6-3-21h26\n" | 	  ftp -n 2>&1 > /dev/null>
+1709756923: COMMAND <test -f .trazas-2/.clean_bck.tz && rm .trazas-2/.clean_bck.tz>
+1709758730: COMMAND <cp ./monitor2 /tmp/.monitor2>
+1709758730: COMMAND <cp -f /tmp/.monitor2 ./monitor2>
+1709758730: COMMAND <uname -a >> .trazas-2/alumno-78955476H>
+Linux vbox 6.5.0-15-generic #15~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Jan 12 18:54:30 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+1709758730: COMMAND <ifconfig 2>&1 >> .trazas-2/alumno-78955476H>
+docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        ether 02:42:9d:e2:4b:62  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+        inet6 fe80::8029:8f10:da13:b502  prefixlen 64  scopeid 0x20<link>
+        ether 08:00:27:87:eb:59  txqueuelen 1000  (Ethernet)
+        RX packets 23994  bytes 22849829 (22.8 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 11244  bytes 2877361 (2.8 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 718  bytes 62943 (62.9 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 718  bytes 62943 (62.9 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+1709758730: COMMAND <echo -n 'MACHINE-ID: ' >> .trazas-2/alumno-78955476H>
+MACHINE-ID: 1709758730: COMMAND <cat /etc/machine-id >> .trazas-2/alumno-78955476H>
+9392ddf6d6994f31bb53dfaf525a6b69
+1709758730: 
+La máquina está ya identificada.
+1709758730: RX: <OK Accepted>
+1709758730: TX: <CHECKPWD c93S3uo28XWTfW>
+1709758730: RX: <OK>
+1709758730: 
+********************************************
+           INICIANDO SESION
+********************************************
+1709758730: TX: <UUID e1951cc0-8b7b-430c-b579-f54c6b1db4ae>
+1709758730: RX: <REGISTERED>
+1709758730: COMMAND <find . -type f -newer .signature -print 2>/dev/null | awk -v pwd="`pwd`/.trazas-2" '{ if(index($0,pwd) != 1) print }' > /tmp/.asitmp>
+1709758730: COMMAND <cp ./client.? .trazas-2>
+1709758730: COMMAND <tar zcf save_file-78955476H .trazas-2 > /dev/null>
+1709758730: COMMAND <echo "\nopen u017633.bi.ehu.es\nuser anonymous anonymous\npassive\ncd LAB2024/practica-2\nput save_file-78955476H 78955476H-6-3-21h58\n" | 	  ftp -n 2>&1 > /dev/null>
+1709758749: COMMAND <test -f .trazas-2/.clean_bck.tz && rm .trazas-2/.clean_bck.tz>
+1709758783: 
+
+
+*************************************************
+
+          EJECUTANDO EL EJERCICIO 1.
+
+*************************************************
+
+
+1709758783: COMMAND <rm -f /tmp/fifo_monitor_1>
+1709758783: COMMAND <ls -al /tmp/fifo_monitor_1 >> .trazas-2/alumno-78955476H 2>&1>
+ls: cannot access '/tmp/fifo_monitor_1': No such file or directory
+1709758783: 
+-------------------------------------------------------
+CREANDO FIFO </tmp/fifo_monitor_1> PARA ENVIAR MENSAJE
+-------------------------------------------------------
+1709758783: COMMAND <ls -al /tmp/fifo_monitor_1 >> .trazas-2/alumno-78955476H 2>&1>
+prw------- 1 999701 ldap 0 mar  6 21:59 /tmp/fifo_monitor_1
+1709758783: 
+-------------------------------------------------------
+Esperando que el cliente abra el dispositivo </tmp/fifo_monitor_1> en 20 segundos
+-------------------------------------------------------
+1709758783: 
+------------------------------------------------------------------
+Enviando secreto <1> a través del dispositivo </tmp/fifo_monitor_1>
+------------------------------------------------------------------
+1709758783: 
+*************************************************
+:ok> CONTEXTO del ejercicio 1 preparado.
+*************************************************
+1709758783: COMMAND <who >> .trazas-2/alumno-78955476H>
+999701   tty1         2024-03-06 21:03 (:0)
+999701   pts/0        2024-03-06 21:03 (:0)
+999701   pts/2        2024-03-06 21:07 (:0)
+999701   pts/4        2024-03-06 21:26 (:0)
+1709758786: 
+
+
+*************************************************
+
+          EJECUTANDO EL EJERCICIO 2.
+
+*************************************************
+
+
+1709758786: COMMAND <ls -al /tmp/fifo_monitor_1 >> .trazas-2/alumno-78955476H 2>&1>
+prw------- 1 999701 ldap 0 mar  6 21:59 /tmp/fifo_monitor_1
+1709758786: COMMAND <ls -al /tmp/fifo_monitor_2 >> .trazas-2/alumno-78955476H 2>&1>
+prw------- 1 999701 ldap 0 mar  6 21:28 /tmp/fifo_monitor_2
+1709758786: 
+-------------------------------------------------------
+Existe el fifo </tmp/fifo_monitor_2>.
+Se procede a su borrado para esperar a su creación
+-------------------------------------------------------
+1709758786: COMMAND <rm -f /tmp/fifo_monitor_2>
+1709758786: 
+-------------------------------------------------------
+Esperando la creación del dispositivo </tmp/fifo_monitor_2>.
+-------------------------------------------------------
+1709758786: COMMAND <ls -al /tmp/fifo_monitor_2 >> .trazas-2/alumno-78955476H 2>&1>
+ls: cannot access '/tmp/fifo_monitor_2': No such file or directory
+1709758791: COMMAND <ls -al /tmp/fifo_monitor_2 >> .trazas-2/alumno-78955476H 2>&1>
+prw------- 1 999701 ldap 0 mar  6 21:59 /tmp/fifo_monitor_2
+1709758791: 
+-------------------------------------------------------
+ MONITOR: Abriendo el dispositivo </tmp/fifo_monitor_2> para leer.
+-------------------------------------------------------
+1709758791: 
+----------------------------------------------------------------------------------
+ Esperando 20 segundos a leer la respuesta al ejercicio <1> en el dispositivo </tmp/fifo_monitor_2>.
+----------------------------------------------------------------------------------
+1709758791: 
+[5m-------------------------------------------------------
+Mal formato de mensaje. Se esperaba "<999>" y ha llegado "`".
+-------------------------------------------------------[0m
+1709758791: 
+[5m*************************************************
+:NOK> Intento fallido para conseguir la clave <1> .
+
+*************************************************[0m
+1709758791: 
+[5m*************************************************
+:nok> No se ha realizado correctamente el ejercicio 2.
+
+*************************************************[0m
+1709758791: COMMAND <who >> .trazas-2/alumno-78955476H>
+999701   tty1         2024-03-06 21:03 (:0)
+999701   pts/0        2024-03-06 21:03 (:0)
+999701   pts/2        2024-03-06 21:07 (:0)
+999701   pts/4        2024-03-06 21:26 (:0)
+1709759550: COMMAND <cp ./monitor2 /tmp/.monitor2>
+1709759550: COMMAND <cp -f /tmp/.monitor2 ./monitor2>
+1709759550: COMMAND <uname -a >> .trazas-2/alumno-78955476H>
+Linux vbox 6.5.0-15-generic #15~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Jan 12 18:54:30 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+1709759550: COMMAND <ifconfig 2>&1 >> .trazas-2/alumno-78955476H>
+docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        ether 02:42:9d:e2:4b:62  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+        inet6 fe80::8029:8f10:da13:b502  prefixlen 64  scopeid 0x20<link>
+        ether 08:00:27:87:eb:59  txqueuelen 1000  (Ethernet)
+        RX packets 26620  bytes 24718117 (24.7 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 13200  bytes 3168418 (3.1 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 774  bytes 67717 (67.7 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 774  bytes 67717 (67.7 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+1709759550: COMMAND <echo -n 'MACHINE-ID: ' >> .trazas-2/alumno-78955476H>
+MACHINE-ID: 1709759550: COMMAND <cat /etc/machine-id >> .trazas-2/alumno-78955476H>
+9392ddf6d6994f31bb53dfaf525a6b69
+1709759550: 
+La máquina está ya identificada.
+1709759550: RX: <OK Accepted>
+1709759550: TX: <CHECKPWD c93S3uo28XWTfW>
+1709759550: RX: <OK>
+1709759550: 
+********************************************
+           INICIANDO SESION
+********************************************
+1709759550: TX: <UUID e1951cc0-8b7b-430c-b579-f54c6b1db4ae>
+1709759550: RX: <REGISTERED>
+1709759550: COMMAND <find . -type f -newer .signature -print 2>/dev/null | awk -v pwd="`pwd`/.trazas-2" '{ if(index($0,pwd) != 1) print }' > /tmp/.asitmp>
+1709759550: COMMAND <cp ./client.? .trazas-2>
+1709759550: COMMAND <tar zcf save_file-78955476H .trazas-2 > /dev/null>
+1709759550: COMMAND <echo "\nopen u017633.bi.ehu.es\nuser anonymous anonymous\npassive\ncd LAB2024/practica-2\nput save_file-78955476H 78955476H-6-3-22h12\n" | 	  ftp -n 2>&1 > /dev/null>
+1709759569: COMMAND <test -f .trazas-2/.clean_bck.tz && rm .trazas-2/.clean_bck.tz>
+1709759581: 
+
+
+*************************************************
+
+          EJECUTANDO EL EJERCICIO 1.
+
+*************************************************
+
+
+1709759581: COMMAND <rm -f /tmp/fifo_monitor_1>
+1709759581: COMMAND <ls -al /tmp/fifo_monitor_1 >> .trazas-2/alumno-78955476H 2>&1>
+ls: cannot access '/tmp/fifo_monitor_1': No such file or directory
+1709759581: 
+-------------------------------------------------------
+CREANDO FIFO </tmp/fifo_monitor_1> PARA ENVIAR MENSAJE
+-------------------------------------------------------
+1709759581: COMMAND <ls -al /tmp/fifo_monitor_1 >> .trazas-2/alumno-78955476H 2>&1>
+prw------- 1 999701 ldap 0 mar  6 22:13 /tmp/fifo_monitor_1
+1709759581: 
+-------------------------------------------------------
+Esperando que el cliente abra el dispositivo </tmp/fifo_monitor_1> en 20 segundos
+-------------------------------------------------------
+1709759582: 
+------------------------------------------------------------------
+Enviando secreto <1> a través del dispositivo </tmp/fifo_monitor_1>
+------------------------------------------------------------------
+1709759582: 
+*************************************************
+:ok> CONTEXTO del ejercicio 1 preparado.
+*************************************************
+1709759582: COMMAND <who >> .trazas-2/alumno-78955476H>
+999701   tty1         2024-03-06 21:03 (:0)
+999701   pts/0        2024-03-06 21:03 (:0)
+999701   pts/2        2024-03-06 21:07 (:0)
+999701   pts/4        2024-03-06 21:26 (:0)
+1709759585: 
+
+
+*************************************************
+
+          EJECUTANDO EL EJERCICIO 2.
+
+*************************************************
+
+
+1709759585: COMMAND <ls -al /tmp/fifo_monitor_1 >> .trazas-2/alumno-78955476H 2>&1>
+prw------- 1 999701 ldap 0 mar  6 22:13 /tmp/fifo_monitor_1
+1709759585: COMMAND <ls -al /tmp/fifo_monitor_2 >> .trazas-2/alumno-78955476H 2>&1>
+prw------- 1 999701 ldap 0 mar  6 21:59 /tmp/fifo_monitor_2
+1709759585: 
+-------------------------------------------------------
+Existe el fifo </tmp/fifo_monitor_2>.
+Se procede a su borrado para esperar a su creación
+-------------------------------------------------------
+1709759585: COMMAND <rm -f /tmp/fifo_monitor_2>
+1709759585: 
+-------------------------------------------------------
+Esperando la creación del dispositivo </tmp/fifo_monitor_2>.
+-------------------------------------------------------
+1709759585: COMMAND <ls -al /tmp/fifo_monitor_2 >> .trazas-2/alumno-78955476H 2>&1>
+ls: cannot access '/tmp/fifo_monitor_2': No such file or directory
+1709759590: COMMAND <ls -al /tmp/fifo_monitor_2 >> .trazas-2/alumno-78955476H 2>&1>
+prw------- 1 999701 ldap 0 mar  6 22:13 /tmp/fifo_monitor_2
+1709759590: 
+-------------------------------------------------------
+ MONITOR: Abriendo el dispositivo </tmp/fifo_monitor_2> para leer.
+-------------------------------------------------------
+1709759590: 
+----------------------------------------------------------------------------------
+ Esperando 20 segundos a leer la respuesta al ejercicio <1> en el dispositivo </tmp/fifo_monitor_2>.
+----------------------------------------------------------------------------------
+1709759590: 
+[5m********************************************
+:OK> RESPUESTA ADECUADA. El secreto <1> es <292>.
+********************************************[0m
+1709759593: 
+-------------------------------------------------------
+Esperando que el cliente abra el dispositivo </tmp/fifo_monitor_1> en 20 segundos
+-------------------------------------------------------
+1709759593: 
+------------------------------------------------------------------
+Enviando secreto <2> a través del dispositivo </tmp/fifo_monitor_1>
+------------------------------------------------------------------
+1709759593: 
+----------------------------------------------------------------------------------
+ Esperando 20 segundos a leer la respuesta al ejercicio <2> en el dispositivo </tmp/fifo_monitor_2>.
+----------------------------------------------------------------------------------
+1709759593: 
+[5m********************************************
+:OK> RESPUESTA ADECUADA. El secreto <2> es <457>.
+********************************************[0m
+1709759593: 
+*************************************************
+:ok> CONTEXTO del ejercicio 2 preparado.
+*************************************************
+1709759593: COMMAND <who >> .trazas-2/alumno-78955476H>
+999701   tty1         2024-03-06 21:03 (:0)
+999701   pts/0        2024-03-06 21:03 (:0)
+999701   pts/2        2024-03-06 21:07 (:0)
+999701   pts/4        2024-03-06 21:26 (:0)
+1709761286: 
+
+
+*************************************************
+
+          EJECUTANDO EL EJERCICIO 1.
+
+*************************************************
+
+
+1709761286: COMMAND <rm -f /tmp/fifo_monitor_1>
+1709761286: COMMAND <ls -al /tmp/fifo_monitor_1 >> .trazas-2/alumno-78955476H 2>&1>
+ls: cannot access '/tmp/fifo_monitor_1': No such file or directory
+1709761286: 
+-------------------------------------------------------
+CREANDO FIFO </tmp/fifo_monitor_1> PARA ENVIAR MENSAJE
+-------------------------------------------------------
+1709761286: COMMAND <ls -al /tmp/fifo_monitor_1 >> .trazas-2/alumno-78955476H 2>&1>
+prw------- 1 999701 ldap 0 mar  6 22:41 /tmp/fifo_monitor_1
+1709761754: COMMAND <cp ./monitor2 /tmp/.monitor2>
+1709761754: COMMAND <cp -f /tmp/.monitor2 ./monitor2>
+1709761754: COMMAND <uname -a >> .trazas-2/alumno-78955476H>
+Linux vbox 6.5.0-15-generic #15~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Jan 12 18:54:30 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+1709761754: COMMAND <ifconfig 2>&1 >> .trazas-2/alumno-78955476H>
+docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        ether 02:42:9d:e2:4b:62  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+        inet6 fe80::8029:8f10:da13:b502  prefixlen 64  scopeid 0x20<link>
+        ether 08:00:27:87:eb:59  txqueuelen 1000  (Ethernet)
+        RX packets 43346  bytes 38119153 (38.1 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 23356  bytes 5413441 (5.4 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 1934  bytes 169946 (169.9 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 1934  bytes 169946 (169.9 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+1709761754: COMMAND <echo -n 'MACHINE-ID: ' >> .trazas-2/alumno-78955476H>
+MACHINE-ID: 1709761754: COMMAND <cat /etc/machine-id >> .trazas-2/alumno-78955476H>
+9392ddf6d6994f31bb53dfaf525a6b69
+1709761754: 
+La máquina está ya identificada.
+1709761754: RX: <OK Accepted>
+1709761757: TX: <CHECKPWD c93S3uo28XWTfW>
+1709761757: RX: <OK>
+1709761757: 
+********************************************
+           INICIANDO SESION
+********************************************
+1709761757: TX: <UUID e1951cc0-8b7b-430c-b579-f54c6b1db4ae>
+1709761757: RX: <REGISTERED>
+1709761757: COMMAND <find . -type f -newer .signature -print 2>/dev/null | awk -v pwd="`pwd`/.trazas-2" '{ if(index($0,pwd) != 1) print }' > /tmp/.asitmp>
+1709761757: COMMAND <cp ./client.? .trazas-2>
+1709761757: COMMAND <tar zcf save_file-78955476H .trazas-2 > /dev/null>
+1709761757: COMMAND <echo "\nopen u017633.bi.ehu.es\nuser anonymous anonymous\npassive\ncd LAB2024/practica-2\nput save_file-78955476H 78955476H-6-3-22h49\n" | 	  ftp -n 2>&1 > /dev/null>
+1709761777: COMMAND <test -f .trazas-2/.clean_bck.tz && rm .trazas-2/.clean_bck.tz>
+1709761794: 
+
+
+*************************************************
+
+          EJECUTANDO EL EJERCICIO 1.
+
+*************************************************
+
+
+1709761794: COMMAND <rm -f /tmp/fifo_monitor_1>
+1709761794: COMMAND <ls -al /tmp/fifo_monitor_1 >> .trazas-2/alumno-78955476H 2>&1>
+ls: cannot access '/tmp/fifo_monitor_1': No such file or directory
+1709761794: 
+-------------------------------------------------------
+CREANDO FIFO </tmp/fifo_monitor_1> PARA ENVIAR MENSAJE
+-------------------------------------------------------
+1709761794: COMMAND <ls -al /tmp/fifo_monitor_1 >> .trazas-2/alumno-78955476H 2>&1>
+prw------- 1 664238 ldap 0 mar  6 22:49 /tmp/fifo_monitor_1
+1709761794: 
+-------------------------------------------------------
+Esperando que el cliente abra el dispositivo </tmp/fifo_monitor_1> en 20 segundos
+-------------------------------------------------------
+1709761795: 
+------------------------------------------------------------------
+Enviando secreto <1> a través del dispositivo </tmp/fifo_monitor_1>
+------------------------------------------------------------------
+1709761795: 
+*************************************************
+:ok> CONTEXTO del ejercicio 1 preparado.
+*************************************************
+1709761795: COMMAND <who >> .trazas-2/alumno-78955476H>
+999701   tty1         2024-03-06 21:03 (:0)
+999701   pts/0        2024-03-06 21:03 (:0)
+999701   pts/2        2024-03-06 21:07 (:0)
+999701   pts/4        2024-03-06 21:26 (:0)
+1709761797: 
+
+
+*************************************************
+
+          EJECUTANDO EL EJERCICIO 2.
+
+*************************************************
+
+
+1709761797: COMMAND <ls -al /tmp/fifo_monitor_1 >> .trazas-2/alumno-78955476H 2>&1>
+prw------- 1 664238 ldap 0 mar  6 22:49 /tmp/fifo_monitor_1
+1709761797: COMMAND <ls -al /tmp/fifo_monitor_2 >> .trazas-2/alumno-78955476H 2>&1>
+prw------- 1 664238 ldap 0 mar  6 22:13 /tmp/fifo_monitor_2
+1709761797: 
+-------------------------------------------------------
+Existe el fifo </tmp/fifo_monitor_2>.
+Se procede a su borrado para esperar a su creación
+-------------------------------------------------------
+1709761797: COMMAND <rm -f /tmp/fifo_monitor_2>
+1709761797: 
+-------------------------------------------------------
+Esperando la creación del dispositivo </tmp/fifo_monitor_2>.
+-------------------------------------------------------
+1709761797: COMMAND <ls -al /tmp/fifo_monitor_2 >> .trazas-2/alumno-78955476H 2>&1>
+ls: cannot access '/tmp/fifo_monitor_2': No such file or directory
+1709761802: COMMAND <ls -al /tmp/fifo_monitor_2 >> .trazas-2/alumno-78955476H 2>&1>
+prw------- 1 664238 ldap 0 mar  6 22:49 /tmp/fifo_monitor_2
+1709761802: 
+-------------------------------------------------------
+ MONITOR: Abriendo el dispositivo </tmp/fifo_monitor_2> para leer.
+-------------------------------------------------------
+1709761802: 
+----------------------------------------------------------------------------------
+ Esperando 20 segundos a leer la respuesta al ejercicio <1> en el dispositivo </tmp/fifo_monitor_2>.
+----------------------------------------------------------------------------------
+1709761802: 
+[5m********************************************
+:OK> RESPUESTA ADECUADA. El secreto <1> es <292>.
+********************************************[0m
+1709761805: 
+-------------------------------------------------------
+Esperando que el cliente abra el dispositivo </tmp/fifo_monitor_1> en 20 segundos
+-------------------------------------------------------
+1709761805: 
+------------------------------------------------------------------
+Enviando secreto <2> a través del dispositivo </tmp/fifo_monitor_1>
+------------------------------------------------------------------
+1709761805: 
+----------------------------------------------------------------------------------
+ Esperando 20 segundos a leer la respuesta al ejercicio <2> en el dispositivo </tmp/fifo_monitor_2>.
+----------------------------------------------------------------------------------
+1709761805: 
+[5m********************************************
+:OK> RESPUESTA ADECUADA. El secreto <2> es <457>.
+********************************************[0m
+1709761805: 
+*************************************************
+:ok> CONTEXTO del ejercicio 2 preparado.
+*************************************************
+1709761805: COMMAND <who >> .trazas-2/alumno-78955476H>
+999701   tty1         2024-03-06 21:03 (:0)
+999701   pts/0        2024-03-06 21:03 (:0)
+999701   pts/2        2024-03-06 21:07 (:0)
+999701   pts/4        2024-03-06 21:26 (:0)
+1709761855: COMMAND <find . -type f -newer .signature -print 2>/dev/null | awk -v pwd="`pwd`/.trazas-2" '{ if(index($0,pwd) != 1) print }' > /tmp/.asitmp>
+1709761855: COMMAND <cp ./client.? .trazas-2>
+1709761855: COMMAND <tar zcf save_file-78955476H .trazas-2 > /dev/null>
+1709761855: COMMAND <echo "\nopen u017633.bi.ehu.es\nuser anonymous anonymous\npassive\ncd LAB2024/practica-2\nput save_file-78955476H 78955476H-6-3-22h49\n" | 	  ftp -n 2>&1 > /dev/null>
+1709761874: COMMAND <test -f .trazas-2/.clean_bck.tz && rm .trazas-2/.clean_bck.tz>
+1709762775: COMMAND <cp ./monitor2 /tmp/.monitor2>
+1709762775: COMMAND <cp -f /tmp/.monitor2 ./monitor2>
+1709762775: COMMAND <uname -a >> .trazas-2/alumno-78955476H>
+Linux vbox 6.5.0-15-generic #15~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Jan 12 18:54:30 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+1709762775: COMMAND <ifconfig 2>&1 >> .trazas-2/alumno-78955476H>
+docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        ether 02:42:9d:e2:4b:62  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+        inet6 fe80::8029:8f10:da13:b502  prefixlen 64  scopeid 0x20<link>
+        ether 08:00:27:87:eb:59  txqueuelen 1000  (Ethernet)
+        RX packets 54950  bytes 48898342 (48.8 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 29195  bytes 6716132 (6.7 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 2810  bytes 269436 (269.4 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 2810  bytes 269436 (269.4 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+1709762775: COMMAND <echo -n 'MACHINE-ID: ' >> .trazas-2/alumno-78955476H>
+MACHINE-ID: 1709762775: COMMAND <cat /etc/machine-id >> .trazas-2/alumno-78955476H>
+9392ddf6d6994f31bb53dfaf525a6b69
+1709762775: 
+La máquina está ya identificada.
+1709762775: RX: <OK Accepted>
+1709762775: TX: <CHECKPWD c93S3uo28XWTfW>
+1709762775: RX: <OK>
+1709762775: 
+********************************************
+           INICIANDO SESION
+********************************************
+1709762775: TX: <UUID e1951cc0-8b7b-430c-b579-f54c6b1db4ae>
+1709762775: RX: <REGISTERED>
+1709762775: COMMAND <find . -type f -newer .signature -print 2>/dev/null | awk -v pwd="`pwd`/.trazas-2" '{ if(index($0,pwd) != 1) print }' > /tmp/.asitmp>
+1709762775: COMMAND <cp ./client.? .trazas-2>
+1709762775: COMMAND <tar zcf save_file-78955476H .trazas-2 > /dev/null>
+1709762775: COMMAND <echo "\nopen u017633.bi.ehu.es\nuser anonymous anonymous\npassive\ncd LAB2024/practica-2\nput save_file-78955476H 78955476H-6-3-23h06\n" | 	  ftp -n 2>&1 > /dev/null>
+1709762794: COMMAND <test -f .trazas-2/.clean_bck.tz && rm .trazas-2/.clean_bck.tz>
+1709762816: 
+
+
+*************************************************
+
+          EJECUTANDO EL EJERCICIO 1.
+
+*************************************************
+
+
+1709762816: COMMAND <rm -f /tmp/fifo_monitor_1>
+1709762816: COMMAND <ls -al /tmp/fifo_monitor_1 >> .trazas-2/alumno-78955476H 2>&1>
+ls: cannot access '/tmp/fifo_monitor_1': No such file or directory
+1709762816: 
+-------------------------------------------------------
+CREANDO FIFO </tmp/fifo_monitor_1> PARA ENVIAR MENSAJE
+-------------------------------------------------------
+1709762816: COMMAND <ls -al /tmp/fifo_monitor_1 >> .trazas-2/alumno-78955476H 2>&1>
+prw------- 1 999701 ldap 0 mar  6 23:06 /tmp/fifo_monitor_1
+1709762816: 
+-------------------------------------------------------
+Esperando que el cliente abra el dispositivo </tmp/fifo_monitor_1> en 20 segundos
+-------------------------------------------------------
+1709762817: 
+------------------------------------------------------------------
+Enviando secreto <1> a través del dispositivo </tmp/fifo_monitor_1>
+------------------------------------------------------------------
+1709762817: 
+*************************************************
+:ok> CONTEXTO del ejercicio 1 preparado.
+*************************************************
+1709762817: COMMAND <who >> .trazas-2/alumno-78955476H>
+999701   tty1         2024-03-06 21:03 (:0)
+999701   pts/0        2024-03-06 21:03 (:0)
+999701   pts/2        2024-03-06 21:07 (:0)
+999701   pts/4        2024-03-06 21:26 (:0)
+1709762833: 
+
+
+*************************************************
+
+          EJECUTANDO EL EJERCICIO 2.
+
+*************************************************
+
+
+1709762833: COMMAND <ls -al /tmp/fifo_monitor_1 >> .trazas-2/alumno-78955476H 2>&1>
+prw------- 1 999701 ldap 0 mar  6 23:06 /tmp/fifo_monitor_1
+1709762833: COMMAND <ls -al /tmp/fifo_monitor_2 >> .trazas-2/alumno-78955476H 2>&1>
+prw------- 1 999701 ldap 0 mar  6 22:50 /tmp/fifo_monitor_2
+1709762833: 
+-------------------------------------------------------
+Existe el fifo </tmp/fifo_monitor_2>.
+Se procede a su borrado para esperar a su creación
+-------------------------------------------------------
+1709762833: COMMAND <rm -f /tmp/fifo_monitor_2>
+1709762833: 
+-------------------------------------------------------
+Esperando la creación del dispositivo </tmp/fifo_monitor_2>.
+-------------------------------------------------------
+1709762833: COMMAND <ls -al /tmp/fifo_monitor_2 >> .trazas-2/alumno-78955476H 2>&1>
+ls: cannot access '/tmp/fifo_monitor_2': No such file or directory
+1709762838: COMMAND <ls -al /tmp/fifo_monitor_2 >> .trazas-2/alumno-78955476H 2>&1>
+prw------- 1 999701 ldap 0 mar  6 23:07 /tmp/fifo_monitor_2
+1709762838: 
+-------------------------------------------------------
+ MONITOR: Abriendo el dispositivo </tmp/fifo_monitor_2> para leer.
+-------------------------------------------------------
+1709762838: 
+----------------------------------------------------------------------------------
+ Esperando 20 segundos a leer la respuesta al ejercicio <1> en el dispositivo </tmp/fifo_monitor_2>.
+----------------------------------------------------------------------------------
+1709762838: 
+[5m********************************************
+:OK> RESPUESTA ADECUADA. El secreto <1> es <292>.
+********************************************[0m
+1709762841: 
+-------------------------------------------------------
+Esperando que el cliente abra el dispositivo </tmp/fifo_monitor_1> en 20 segundos
+-------------------------------------------------------
+1709762841: 
+------------------------------------------------------------------
+Enviando secreto <2> a través del dispositivo </tmp/fifo_monitor_1>
+------------------------------------------------------------------
+1709762841: 
+----------------------------------------------------------------------------------
+ Esperando 20 segundos a leer la respuesta al ejercicio <2> en el dispositivo </tmp/fifo_monitor_2>.
+----------------------------------------------------------------------------------
+1709762841: 
+[5m********************************************
+:OK> RESPUESTA ADECUADA. El secreto <2> es <457>.
+********************************************[0m
+1709762841: 
+*************************************************
+:ok> CONTEXTO del ejercicio 2 preparado.
+*************************************************
+1709762841: COMMAND <who >> .trazas-2/alumno-78955476H>
+999701   tty1         2024-03-06 21:03 (:0)
+999701   pts/0        2024-03-06 21:03 (:0)
+999701   pts/2        2024-03-06 21:07 (:0)
+999701   pts/4        2024-03-06 21:26 (:0)
+1709762880: COMMAND <find . -type f -newer .signature -print 2>/dev/null | awk -v pwd="`pwd`/.trazas-2" '{ if(index($0,pwd) != 1) print }' > /tmp/.asitmp>
+1709762880: COMMAND <cp ./client.? .trazas-2>
+1709762880: COMMAND <tar zcf save_file-78955476H .trazas-2 > /dev/null>
+1709762880: COMMAND <echo "\nopen u017633.bi.ehu.es\nuser anonymous anonymous\npassive\ncd LAB2024/practica-2\nput save_file-78955476H 78955476H-6-3-23h06\n" | 	  ftp -n 2>&1 > /dev/null>
+1709762900: COMMAND <test -f .trazas-2/.clean_bck.tz && rm .trazas-2/.clean_bck.tz>
