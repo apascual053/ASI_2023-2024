@@ -3,21 +3,33 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/msg.h>
 #include <unistd.h>
 #include <string.h>
 #include <ctype.h>
 #include <fcntl.h>
 
+#define MAX_MESSAGE_SIZE 1024
+#define KEY 0x78955476L
+
 #define FIFO1  "/tmp/fifo_monitor_1"
 #define FIFO2  "/tmp/fifo_monitor_2"
+
+struct msg_buffer {
+	long msg_type;
+	char msg_text[MAX_MESSAGE_SIZE];
+};
 
 int menuser();
 int ejercicio1(char* cad);
 int ejercicio2(char* cad, int fifo1);
+void ejercicio3(struct msg_buffer *msg);
+void ejercicio4(struct msg_buffer *msg);
 
 int main(int argc, char** argv) {
 	int pidMonitor, fifo1, fifo2;
 	char cad[100];
+	struct msg_buffer msg;
 	int opt;
 	
 	do{
@@ -34,8 +46,10 @@ int main(int argc, char** argv) {
 				fifo2 = ejercicio2(cad, fifo1);
 				break;
 			case 3:
+				ejercicio3(&msg);
 				break;
 			case 4:
+				ejercicio4(&msg);
 				break;
 			case 5:
 				break;
@@ -92,11 +106,10 @@ int ejercicio1(char* cad)
 {
 	int fifo1;
 	
-	printf("Abriendo el FIFO 1...");fifo1 = open(FIFO1, O_RDWR);printf(" Abierto correctamente\n");
-	printf("Leyendo del FIFO 1...");
+	fifo1 = open(FIFO1, O_RDWR);
 	int n = read(fifo1, cad, 10);
 	cad[n] = '\0';
-	printf(" ¡Leido(s) %d carácter(es) del FIFO 1!\n",n);
+	printf("¡Leido(s) %d carácter(es) del FIFO 1!\n",n);
 
 	return(fifo1);
 }
@@ -105,16 +118,24 @@ int ejercicio2(char* cad, int fifo1)
 {
 	int fifo2;
 
-	printf("Creando FIFO 2..."); mkfifo(FIFO2, 0600); printf(" Creado correctamente.\n");
-	printf("Abriendo y escribiendo en el FIFO 2...");
+	mkfifo(FIFO2, 0600);
 	fifo2 = open(FIFO2, O_RDWR);
 	write(fifo2, cad, strlen(cad));
 	printf(" Se han escrito %ld caractéres.\n", strlen(cad));
-	printf("Leyendo del FIFO 1..."); 
 	int n = read(fifo1, cad, 10); 
 	cad[n] = '\0';
 	printf(" Se han leido %d caractéres.\n", n);
-	printf("Escribiendo en el FIFO 2..."); 	write(fifo2, cad, strlen(cad)); printf(" Se han escrito %ld caractéres.\n", strlen(cad));
+	write(fifo2, cad, strlen(cad)); 
+	printf(" Se han escrito %ld caractéres.\n", strlen(cad));
 	
 	return(fifo2);
 }
+
+void ejercicio3(struct msg_buffer* msg)
+{
+	int msg_id = msgget(KEY, 0666);
+	msgrcv(msg_id, msg, sizeof(msg_id)-sizeof(long), 0, 0);
+}
+
+void ejercicio4(struct msg_buffer *msg){};
+
