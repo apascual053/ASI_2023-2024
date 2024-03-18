@@ -20,16 +20,22 @@ struct msg_buffer {
 	char msg_text[MAX_MESSAGE_SIZE];
 };
 
+struct secreto45 {
+	long secreto_tipo;
+	char secreto_texto[5];
+};
+
 int menuser();
 int ejercicio1(char* cad);
 int ejercicio2(char* cad, int fifo1);
-void ejercicio3(struct msg_buffer *msg);
-void ejercicio4(struct msg_buffer *msg);
+void ejercicio3(struct msg_buffer *msg, struct secreto45 *sec45);
+void ejercicio4(struct msg_buffer *msg, struct secreto45 *sec45);
 
 int main(int argc, char** argv) {
 	int pidMonitor, fifo1, fifo2;
 	char cad[100];
 	struct msg_buffer msg;
+	struct secreto45 sec45;
 	int opt;
 	
 	do{
@@ -46,10 +52,10 @@ int main(int argc, char** argv) {
 				fifo2 = ejercicio2(cad, fifo1);
 				break;
 			case 3:
-				ejercicio3(&msg);
+				ejercicio3(&msg, &sec45);
 				break;
 			case 4:
-				ejercicio4(&msg);
+				ejercicio4(&msg, &sec45);
 				break;
 			case 5:
 				break;
@@ -131,7 +137,7 @@ int ejercicio2(char* cad, int fifo1)
 	return(fifo2);
 }
 
-void ejercicio3(struct msg_buffer* msg)
+void ejercicio3(struct msg_buffer* msg, struct secreto45 *sec45)
 {
 	int msg_id = msgget(KEY, 0666);
 	if (msg_id == -1)
@@ -148,7 +154,35 @@ void ejercicio3(struct msg_buffer* msg)
 	}
 
 	printf("Mensaje recibido: Tipo %ld . Contenido: %s .\n", msg->msg_type, msg->msg_text);
+
+	sec45->secreto_tipo = msg->msg_type;
+	strcpy(sec45->secreto_texto, msg->msg_text);
 }
 
-void ejercicio4(struct msg_buffer *msg){};
+void ejercicio4(struct msg_buffer *msg, struct secreto45 *sec45)
+{
+	char cadena[10]; // defino una cadena
+	sprintf(cadena, "<%ld>%s",  sec45->secreto_tipo, sec45->secreto_texto);
+
+	printf("El mensaje a enviar es: %s\n", cadena);
+
+	// Preparo msg
+	msg->msg_type = 1; //cualquier tipo
+	strcpy(msg->msg_text, cadena);
+
+
+    // Obtener el ID de la cola de mensajes o crearla si no existe
+    int msg_id;
+    msg_id = msgget(KEY, 0666 | IPC_CREAT);
+    if (msg_id == -1) {
+        perror("Ejercicio 4: error en msgget");
+        exit(-1);
+    }
+
+    // Poner mensaje en la cola de mensajes
+    if (msgsnd(msg_id, (void *)msg, sizeof(struct msg_buffer) - sizeof(long), 0) == -1) {
+        perror("Ejercicio 4: error en msgsnd");
+        exit(-1);
+    }
+}
 
