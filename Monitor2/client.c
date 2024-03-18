@@ -134,7 +134,20 @@ int ejercicio2(char* cad, int fifo1)
 void ejercicio3(struct msg_buffer* msg)
 {
 	int msg_id = msgget(KEY, 0666);
-	msgrcv(msg_id, msg, sizeof(msg_id)-sizeof(long), 0, 0);
+	if (msg_id == -1)
+	{
+		perror("Ejercicio 3: error en msgget.\n");
+		exit(-1);
+	}
+
+	int n = msgrcv(msg_id, msg, sizeof(struct msg_buffer)-sizeof(long), 0, 0);
+	if(n == -1)
+	{
+		perror("Ejercicio 3: error en msgrcv.\n");
+		exit(-1);
+	}
+
+	printf("Mensaje recibido: Tipo %ld . Contenido: %s .\n", msg->msg_type, msg->msg_text);
 }
 
 void ejercicio4(struct msg_buffer *msg){};
