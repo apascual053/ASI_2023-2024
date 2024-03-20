@@ -17,8 +17,8 @@ typedef struct {
 } Secrets;
 
 int menuser();
-void ejercicio1(int shm_id, Secrets *secrets);
-void ejercicio2();
+void ejercicio1(Secrets *secrets);
+void ejercicio2(Secrets *secrets);
 void ejercicio3();
 void ejercicio4();
 void ejercicio5();
@@ -37,10 +37,10 @@ int main(int argc, char** argv) {
                                 return(EXIT_SUCCESS);
                                 break;
                         case 1:
-                                ejercicio1(shm_id, &secrets);
+                                ejercicio1(&secrets);
                                 break;
                         case 2:
-                                ejercicio2();
+                                ejercicio2(&secrets);
                                 break;
                         case 3:
                                 ejercicio3();
@@ -101,9 +101,11 @@ int menuser()
         return(opt);
 }
 
-void ejercicio1(int shm_id, Secrets *secrets)
+void ejercicio1(Secrets *secrets)
 {
+	int shm_id;
 	void *shmaddr;
+
 	if((shm_id = shmget(KEY, MAX_SIZE, 0400 | IPC_CREAT)) < 0)
 	{
 		perror("Ejercicio1: shmget error.\n");
@@ -138,7 +140,45 @@ void ejercicio1(int shm_id, Secrets *secrets)
 	printf("Ejercicio1: secreto 1 = %d\n", secrets->secret1);
 	printf("Ejercicio1: secreto 2 = %d\n", secrets->secret2);			
 }
-void ejercicio2(){}
+void ejercicio2(Secrets *secrets)
+{
+	int shm_id, dsp;
+	void *shmaddr;
+
+	char secret1_str[8];
+	char secret2_str[8];
+
+	if((shm_id = shmget(KEY, MAX_SIZE, 0666 | IPC_CREAT)) < 0)
+	{
+		perror("Ejercicio2: shmget error.\n");
+		exit(-1);
+	}
+
+	if((shmaddr = shmat(shm_id, NULL, 0)) == (void *) -1)
+	{
+		perror("Ejercicio2: shmat error.\n");
+		exit(-1);
+	}
+
+	// Escribir el secreto 2 en la posicion 0
+	snprintf(secret2_str, sizeof(secret2_str), "<%d>", secrets->secret2);
+	strncpy((char *)shmaddr, secret2_str, sizeof(secret2_str));
+	printf("Escrito secreto 2 (%s) en la posicion 0.\n", secret2_str);
+
+	// Escribir el secreto 1 en la posicion dsp
+	snprintf(secret1_str, sizeof(secret1_str), "<%d>", secrets->secret1);
+	dsp = secrets->secret2 + 16;
+	strncpy((char *)(shmaddr + dsp), secret1_str, sizeof(secret1_str));
+	printf("Escrito secreto 1 (%s) en la posicion %d.\n", secret1_str, dsp);
+
+	sleep(3);
+	if (shmdt(shmaddr) == -1)
+	{
+		perror("Ejercicio2: shmdt error.\n");
+		exit(-1);
+	}
+	printf("Ejercicio 2: desvinculado de shm.\n");
+}
 void ejercicio3(){}
 void ejercicio4(){}
 void ejercicio5(){}
