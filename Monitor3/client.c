@@ -11,8 +11,13 @@
 #define MAX_SIZE 1024
 #define KEY 0x78955476L
 
+typedef struct {
+	int secret1;
+	int secret2;
+} Secrets;
+
 int menuser();
-void ejercicio1();
+void ejercicio1(int shm_id, Secrets *secrets);
 void ejercicio2();
 void ejercicio3();
 void ejercicio4();
@@ -21,7 +26,8 @@ void ejercicio6();
 void ejercicio7();
 
 int main(int argc, char** argv) {
-        int opt;
+        int opt, shm_id;
+	Secrets secrets;
 
         do{
                 opt = menuser();
@@ -31,7 +37,7 @@ int main(int argc, char** argv) {
                                 return(EXIT_SUCCESS);
                                 break;
                         case 1:
-                                ejercicio1();
+                                ejercicio1(shm_id, &secrets);
                                 break;
                         case 2:
                                 ejercicio2();
@@ -95,18 +101,42 @@ int menuser()
         return(opt);
 }
 
-void ejercicio1()
+void ejercicio1(int shm_id, Secrets *secrets)
 {
-	int shm_id = shmget(KEY, MAX_SIZE, 0400 | IPC_CREAT);
-	if(shm_id < 0)
+	void *shmaddr;
+	if((shm_id = shmget(KEY, MAX_SIZE, 0400 | IPC_CREAT)) < 0)
 	{
-		perror("Ejercicio1: error al crear el acceso a la memoria compartida.\n");
+		perror("Ejercicio1: shmget error.\n");
 		exit(-1);
 	}
 	
-	struct shmid_ds buf;
-	int *n = shmat(shm_id, 0, 0);
+	if((shmaddr = shmat(shm_id, NULL, 0)) == (void *) -1)
+	{
+		perror("Ejercicio1: shmat error.\n");
+		exit(-1);
+	}
 
+	int *p = (int *)shmaddr;
+	secrets->secret1 = *p;
+
+	p = (int *)(shmaddr + sizeof(int));
+	int offset = *p;
+
+	char *c;
+	c = (char *)(shmaddr + offset);
+
+	sscanf(c, "<%d>", &secrets->secret2);
+
+	sleep(3);
+
+	if (shmdt(shmaddr) == -1)
+	{
+		perror("Ejercicio1: smhdt error.\n");
+		exit(-1);
+	}
+
+	printf("Ejercicio1: secreto 1 = %d\n", secrets->secret1);
+	printf("Ejercicio1: secreto 2 = %d\n", secrets->secret2);			
 }
 void ejercicio2(){}
 void ejercicio3(){}
