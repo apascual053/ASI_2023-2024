@@ -7,6 +7,7 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
+#include <sys/sem.h>
 
 #define MAX_SIZE 1024
 #define KEY 0x78955476L
@@ -179,7 +180,34 @@ void ejercicio2(Secrets *secrets)
 	}
 	printf("Ejercicio 2: desvinculado de shm.\n");
 }
-void ejercicio3(){}
+
+void ejercicio3()
+{
+	int sem_id, key_sem = 476;
+
+	// Crear el semáforo
+	if( (sem_id = semget(KEY, 1, 0666 | IPC_CREAT)) == -1)
+	{
+		perror("Ejercicio3: sgmet error.\n");
+		exit(-1);
+	}
+
+	// Inicializar el semáforo
+	union semun {
+		int val;
+		struct semid_ds *buf;
+		unsigned short *array;
+	} arg;
+
+	arg.val = key_sem;
+	if (semctl(sem_id, 0, SETVAL, arg) == -1)
+	{
+		perror("Ejercico3: error semctl.\n");
+	       exit(-1);
+	}
+
+	printf("Semáforo creado e inicializado con valor %d\n", key_sem);	
+}
 void ejercicio4(){}
 void ejercicio5(){}
 void ejercicio6(){}
