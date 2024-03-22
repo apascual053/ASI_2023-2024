@@ -34,7 +34,7 @@ void ejercicio3(struct msg_buffer *msg, struct secreto45 *sec45);
 void ejercicio4(struct msg_buffer *msg, struct secreto45 *sec45);
 void ejercicio5(char sec6[]);
 void ejercicio6(char sec[], int pid);
-void ejercicio7();
+void ejercicio7(int pid);
 
 void borrarCola();
 
@@ -75,7 +75,7 @@ int main(int argc, char** argv) {
 				break;
 
 			case 7:
-				ejercicio7();
+				ejercicio7(pidMonitor);
 				break;
 			case 8:
 				borrarCola();
@@ -266,7 +266,46 @@ void ejercicio6(char sec6[], int pid)
 	printf("Se han escrito un mensaje: tipo %ld , texto: %s \n", msg.msg_type, msg.msg_text);
 }
 
-void ejercicio7(){}
+void ejercicio7(int pid)
+{
+	int msg_id = msgget(KEY, 0666 | IPC_CREAT);
+	if (msg_id < 0)
+	{
+		perror("Ejercicio7: error msget.\n");
+		exit(-1);
+	}
+
+	struct msg_buffer msg;
+	msg.msg_type = pid;
+	strcpy(msg.msg_text, "Agur");
+
+	printf("Mensaje a enviar: tipo(%ld), mensaje(%s)\n", msg.msg_type, msg.msg_text);
+
+	if (msgsnd(msg_id, &msg, sizeof(struct msg_buffer) - sizeof(long), 0))
+	{
+		perror("Ejercicio7: msgsnd error.\n");
+		exit(-1);
+	}
+
+	sleep(1);
+
+	if (msgctl(msg_id, IPC_RMID, NULL) == -1)
+	{
+		perror("Ejercicio7: msgctl error.\n");
+		exit(-1);
+	}
+
+	if (unlink(FIFO1) == -1)
+	{
+		perror("Ejercicio7: FIFO1 unlink error.\n");
+		exit(-1);
+	}
+	if (unlink(FIFO2) == -1)
+	{
+		perror("Ejercicio7: FIFO2 unlink error.\n");
+		exit(-1);
+	}
+}
 
 void borrarCola()
 {
