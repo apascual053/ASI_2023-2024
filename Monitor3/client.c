@@ -20,14 +20,14 @@ typedef struct {
 int menuser();
 void ejercicio1(Secrets *secrets);
 void ejercicio2(Secrets *secrets);
-void ejercicio3();
-void ejercicio4();
+void ejercicio3(int *sem_id);
+void ejercicio4(int *sem_id);
 void ejercicio5();
 void ejercicio6();
 void ejercicio7();
 
 int main(int argc, char** argv) {
-        int opt, shm_id;
+        int opt, shm_id, sem_id;
 	Secrets secrets;
 
         do{
@@ -44,10 +44,10 @@ int main(int argc, char** argv) {
                                 ejercicio2(&secrets);
                                 break;
                         case 3:
-                                ejercicio3();
+                                ejercicio3(&sem_id);
                                 break;
                         case 4:
-                                ejercicio4();
+                                ejercicio4(&sem_id);
                                 break;
                         case 5:
 				ejercicio5();
@@ -141,6 +141,7 @@ void ejercicio1(Secrets *secrets)
 	printf("Ejercicio1: secreto 1 = %d\n", secrets->secret1);
 	printf("Ejercicio1: secreto 2 = %d\n", secrets->secret2);			
 }
+
 void ejercicio2(Secrets *secrets)
 {
 	int shm_id, dsp;
@@ -181,12 +182,12 @@ void ejercicio2(Secrets *secrets)
 	printf("Ejercicio 2: desvinculado de shm.\n");
 }
 
-void ejercicio3()
+void ejercicio3(int *sem_id)
 {
-	int sem_id, key_sem = 476;
+	int key_sem = 476;
 
 	// Crear el semáforo
-	if( (sem_id = semget(KEY, 1, 0666 | IPC_CREAT)) == -1)
+	if ((*sem_id = semget(KEY, 1, 0666 | IPC_CREAT)) == -1)
 	{
 		perror("Ejercicio3: sgmet error.\n");
 		exit(-1);
@@ -200,7 +201,7 @@ void ejercicio3()
 	} arg;
 
 	arg.val = key_sem;
-	if (semctl(sem_id, 0, SETVAL, arg) == -1)
+	if (semctl(*sem_id, 0, SETVAL, arg) == -1)
 	{
 		perror("Ejercico3: error semctl.\n");
 	       exit(-1);
@@ -208,7 +209,38 @@ void ejercicio3()
 
 	printf("Semáforo creado e inicializado con valor %d\n", key_sem);	
 }
-void ejercicio4(){}
+
+void ejercicio4(int *sem_id)
+{
+	int sem_val[2] = {1,2};
+	struct sembuf sem_opc[2];
+
+	// Crear el array de semáforos
+	if ((*sem_id = semget(KEY, 2, 0666 | IPC_CREAT)) == -1)
+	{
+		perror("Ejercicio4: error semget.\n");
+		exit(-1);
+	}
+
+	// Inicializar los semáforos
+	for (int i = 0; i < 2; i++)
+	{
+		union semun {
+			int val;
+			struct semid_ds *buf;
+			unsigned short *array;
+		} arg;
+
+		arg.val = sem_val[i];
+		if (semctl(*sem_id, i, SETVAL, arg) == -1)
+		{
+			perror("Ejercicio4: error semctl.\n");
+			exit(-1);
+		}
+
+		printf("Semaforo %d inicializado con valor %d\n", i + 1, sem_val[i]);
+	}
+}
 void ejercicio5(){}
 void ejercicio6(){}
 void ejercicio7(){}
