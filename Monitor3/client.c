@@ -298,10 +298,75 @@ void ejercicio5()
 	// Desvincular el segmento de memoria compartida
     	if (shmdt(shmaddr) == -1) 
 	{
-        	perror("shmdt");
+        	perror("Ejercicio6: shmdt error");
         	exit(EXIT_FAILURE);
     	}
 }
 
-void ejercicio6(){}
+void ejercicio6()
+{
+	// Crear los semáforos
+        int sem_id;
+        if ((sem_id = semget(KEY, 2, 0666 | IPC_CREAT)) == -1)
+        {
+                perror("Ejercicio6: error semget.\n");
+                exit(-1);
+        }
+
+        // Crear el segmento de memoria compartida
+        int shm_id = shmget(KEY, MAX_SIZE, 0666 | IPC_CREAT);
+        if (shm_id == -1)
+        {
+                perror("Ejercicio6: shmget error.\n");
+                exit(-1);
+        }
+
+        // Asociar el segmento de momeria compartida al proceso
+        void *shmaddr = shmat(shm_id, NULL, 0);
+        if (shmaddr == (void *)-1)
+        {
+                perror("Ejercicio6: shmat error.\n");
+                exit(-1);
+        }
+
+	// Estructuras para operaciones en semáforos
+	struct sembuf wait_ops[2] = {
+                {0, -1, 0}, // poner el semáforo 0 en verde
+                {1, -1, 0} // poner el semáfoto 1 en verde
+        };
+
+	struct sembuf signal_ops[2] = {
+		{0, 1, 0}, // poner el semáforo 0 en verde
+		{1, 1, 0} // poner el semáfoto 1 en verde
+	};
+
+	// Esperar a que ambos semáforos estén en verde
+	if (semop(sem_id, wait_ops, 2) == -1)
+	{
+		perror("Ejercicio6: semop 1 error.\n");
+		exit(-1);
+	}
+
+	// Cuando ambos semáforos están en verde...
+	int *data = (int *)shmaddr;
+	int clave = *data;
+	*data = -clave;
+
+	sleep(3);
+
+	// Liberamos los semáforos...
+	if (semop(sem_id, signal_ops, 2) == -1)
+	{
+		perror("Ejercicio6: semop 2 error.\n");
+		exit(-1);
+	}
+
+	// Desasociar el proceso de la memoria compartida
+	if (shmdt(shmaddr) == -1)
+	{
+		perror("Ejercicio6: shmdt error.\n");
+		exit(-1);
+	}
+}
+
 void ejercicio7(){}
