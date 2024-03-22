@@ -369,4 +369,47 @@ void ejercicio6()
 	}
 }
 
-void ejercicio7(){}
+void ejercicio7()
+{
+	int sem_id, shm_id;
+
+	struct sembuf wait_op = {0 , -1, 0};
+
+	if ((sem_id = semget(KEY, 1, 0666 | IPC_CREAT)) == -1)
+	{
+		perror("Ejercicio7: semget error.\n");
+		exit(-1);
+	}
+
+	sleep(1);
+
+	if (semop(sem_id, &wait_op, 1) == -1)
+	{
+		perror("Ejercicio7: semop error.\n");
+		exit(-1);
+	}
+	
+	// Crear el segmento de memoria compartida
+        shm_id = shmget(KEY, MAX_SIZE, 0666 | IPC_CREAT);
+        if (shm_id == -1)
+        {
+                perror("Ejercicio6: shmget error.\n");
+                exit(-1);
+        }
+
+	// Eliminamos la memoria compartida
+	if (shmctl(shm_id, IPC_RMID, NULL) == -1)
+	{
+		perror("Ejercicio7: smhctl IPC_REMID error.\n");
+		exit(-1);
+	}
+
+	// Eliminamos el semáforo
+	if (semctl(sem_id, 0, IPC_RMID) == -1)
+	{
+		perror("Ejercicio7: semctl IPC_RMID error.\n");
+		exit(-1);
+	}
+
+	printf("Recursos eliminados correctamente.\n");
+}
