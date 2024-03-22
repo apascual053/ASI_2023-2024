@@ -26,14 +26,24 @@ struct secreto45 {
 };
 
 int menuser();
+void extraerPidMonitor(int *pid, int argc, char *argv[]);
+
 int ejercicio1(char* cad);
-int ejercicio2(char* cad, int fifo1);
+void ejercicio2(char* cad, int fifo1);
 void ejercicio3(struct msg_buffer *msg, struct secreto45 *sec45);
 void ejercicio4(struct msg_buffer *msg, struct secreto45 *sec45);
+void ejercicio5(char sec6[]);
+void ejercicio6(char sec[], int pid);
+void ejercicio7();
+
+void borrarCola();
 
 int main(int argc, char** argv) {
-	int pidMonitor, fifo1, fifo2;
-	char cad[100];
+	int pidMonitor;
+	extraerPidMonitor(&pidMonitor, argc, argv);
+
+	int fifo1;
+	char cad[100], sec6[5];
 	struct msg_buffer msg;
 	struct secreto45 sec45;
 	int opt;
@@ -49,7 +59,7 @@ int main(int argc, char** argv) {
 				fifo1 = ejercicio1(cad);
 				break;
 			case 2:
-				fifo2 = ejercicio2(cad, fifo1);
+				ejercicio2(cad, fifo1);
 				break;
 			case 3:
 				ejercicio3(&msg, &sec45);
@@ -58,10 +68,17 @@ int main(int argc, char** argv) {
 				ejercicio4(&msg, &sec45);
 				break;
 			case 5:
+				ejercicio5(sec6);
 				break;
 			case 6:
+				ejercicio6(sec6, pidMonitor);
 				break;
+
 			case 7:
+				ejercicio7();
+				break;
+			case 8:
+				borrarCola();
 				break;
 		}
 	}while(1);
@@ -91,7 +108,7 @@ int menuser()
 		char c = getchar();
 		opt = c -'0';
 
-		if(opt >= 0 && opt <= 7)
+		if(opt >= 0 && opt <= 8)
 		{
 			valido = 1;
 			if(opt != 0)
@@ -107,6 +124,23 @@ int menuser()
 	return(opt);
 }
 
+void extraerPidMonitor(int *pid, int argc, char *argv[])
+{
+	if (argc != 2)
+	{
+		perror("Argumento invalidos. Intentelo de nuevo.\n");
+		exit(-1);
+	}
+
+	*pid = atoi(argv[1]);
+	printf("PID monitor = %d\n", *pid);
+
+	if( *pid <= 0)
+	{
+		perror("PID invalido. Intentelo de nuevo.\n");
+		exit(-1);
+	}
+}
 
 int ejercicio1(char* cad)
 {
@@ -120,7 +154,7 @@ int ejercicio1(char* cad)
 	return(fifo1);
 }
 
-int ejercicio2(char* cad, int fifo1)
+void ejercicio2(char* cad, int fifo1)
 {
 	int fifo2;
 
@@ -128,13 +162,13 @@ int ejercicio2(char* cad, int fifo1)
 	fifo2 = open(FIFO2, O_RDWR);
 	write(fifo2, cad, strlen(cad));
 	printf(" Se han escrito %ld caractéres.\n", strlen(cad));
+
 	int n = read(fifo1, cad, 10); 
 	cad[n] = '\0';
 	printf(" Se han leido %d caractéres.\n", n);
+
 	write(fifo2, cad, strlen(cad)); 
 	printf(" Se han escrito %ld caractéres.\n", strlen(cad));
-	
-	return(fifo2);
 }
 
 void ejercicio3(struct msg_buffer* msg, struct secreto45 *sec45)
@@ -171,18 +205,81 @@ void ejercicio4(struct msg_buffer *msg, struct secreto45 *sec45)
 	strcpy(msg->msg_text, cadena);
 
 
-    // Obtener el ID de la cola de mensajes o crearla si no existe
-    int msg_id;
-    msg_id = msgget(KEY, 0666 | IPC_CREAT);
-    if (msg_id == -1) {
-        perror("Ejercicio 4: error en msgget");
-        exit(-1);
-    }
+   	 // Obtener el ID de la cola de mensajes o crearla si no existe
+    	int msg_id;
+    	msg_id = msgget(KEY, 0666 | IPC_CREAT);
+    	if (msg_id == -1) {
+        	perror("Ejercicio 4: error en msgget");
+        	exit(-1);
+    	}
 
-    // Poner mensaje en la cola de mensajes
-    if (msgsnd(msg_id, (void *)msg, sizeof(struct msg_buffer) - sizeof(long), 0) == -1) {
-        perror("Ejercicio 4: error en msgsnd");
-        exit(-1);
-    }
+    	// Poner mensaje en la cola de mensajes
+    	if (msgsnd(msg_id, (void *)msg, sizeof(struct msg_buffer) - sizeof(long), 0) == -1) {
+        	perror("Ejercicio 4: error en msgsnd");
+        	exit(-1);
+    	}
 }
 
+void ejercicio5(char sec6[])
+{
+	int msg_id,n;
+
+	if ((msg_id = msgget(KEY, 0666 | IPC_CREAT)) == -1)
+	{
+		perror("Ejercicio5: msgget error.\n");
+		exit(-1);
+	}
+	
+	struct msg_buffer msg;
+	n = msgrcv(msg_id, &msg, sizeof(struct msg_buffer) - sizeof(long), getpid(), 0);
+	if (n == -1)
+	{
+		perror("Ejercicio5: error msgrcv.\n");
+		exit(-1);
+	}
+	
+	printf("Mensaje recibido: Tipo %ld . Contenido: %s .\n", msg.msg_type, msg.msg_text);
+
+	sec6 = msg.msg_text;
+}
+
+void ejercicio6(char sec6[], int pid)
+{
+	int msg_id;
+
+	if ((msg_id = msgget(KEY, 0666 | IPC_CREAT)) == -1)
+	{
+		perror("Ejercicio6: msgget error.\n");
+		exit(-1);
+	}
+
+	struct msg_buffer msg;
+	msg.msg_type = pid;
+	strcpy(sec6, msg.msg_text);
+
+	if(msgsnd(msg_id, &msg, sizeof(struct msg_buffer) - sizeof(long), 0))
+	{
+		perror("Ejercicio6: msgsnd error.\n");
+		exit(-1);
+	}
+
+	printf("Se han escrito un mensaje: tipo %ld , texto: %s \n", msg.msg_type, msg.msg_text);
+}
+
+void ejercicio7(){}
+
+void borrarCola()
+{
+	int msg_id = msgget(KEY, 0666 | IPC_CREAT);
+	if (msg_id < 0)
+	{
+		perror("BorrarCola: msgget error.\n");
+		exit(-1);
+	}
+
+	if (msgctl(msg_id, IPC_RMID, NULL) == -1)
+	{
+		perror("BorrarCola: msgctl error.\n");
+		exit(-1);
+	}
+}
