@@ -36,8 +36,6 @@ void ejercicio5(char sec6[]);
 void ejercicio6(char sec[], int pid);
 void ejercicio7(int pid);
 
-void borrarCola();
-
 int main(int argc, char** argv) {
 	int pidMonitor;
 	extraerPidMonitor(&pidMonitor, argc, argv);
@@ -76,9 +74,6 @@ int main(int argc, char** argv) {
 
 			case 7:
 				ejercicio7(pidMonitor);
-				break;
-			case 8:
-				borrarCola();
 				break;
 		}
 	}while(1);
@@ -303,22 +298,6 @@ void ejercicio7(int pid)
 	if (unlink(FIFO2) == -1)
 	{
 		perror("Ejercicio7: FIFO2 unlink error.\n");
-		exit(-1);
-	}
-}
-
-void borrarCola()
-{
-	int msg_id = msgget(KEY, 0666 | IPC_CREAT);
-	if (msg_id < 0)
-	{
-		perror("BorrarCola: msgget error.\n");
-		exit(-1);
-	}
-
-	if (msgctl(msg_id, IPC_RMID, NULL) == -1)
-	{
-		perror("BorrarCola: msgctl error.\n");
 		exit(-1);
 	}
 }

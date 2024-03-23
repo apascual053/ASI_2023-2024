@@ -372,6 +372,14 @@ void ejercicio6()
 void ejercicio7()
 {
 	int sem_id, shm_id;
+	
+	// Crear el segmento de memoria compartida
+        shm_id = shmget(KEY, MAX_SIZE, 0666 | IPC_CREAT);
+        if (shm_id == -1)
+        {
+                perror("Ejercicio6: shmget error.\n");
+                exit(-1);
+        }
 
 	struct sembuf wait_op = {0 , -1, 0};
 
@@ -389,13 +397,6 @@ void ejercicio7()
 		exit(-1);
 	}
 	
-	// Crear el segmento de memoria compartida
-        shm_id = shmget(KEY, MAX_SIZE, 0666 | IPC_CREAT);
-        if (shm_id == -1)
-        {
-                perror("Ejercicio6: shmget error.\n");
-                exit(-1);
-        }
 
 	// Eliminamos la memoria compartida
 	if (shmctl(shm_id, IPC_RMID, NULL) == -1)

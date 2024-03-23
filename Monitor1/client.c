@@ -10,19 +10,27 @@
 #include <pthread.h>
 #include <ctype.h>
 
+void extraerPidMonitor(int argc, char *argv[]);
 void waitUser();
 int enviaSenal(int pid, int senal);
+
 void ejercicio1();
 void ejercicio2(int pidMonitor);
-void recibirSenal2();
+void ej2_signal2_handler();
+
 void codigoPadre(int pid1, int pid2);
-void codigoHijo1();
-void codigoHijo2();
-void crearHilo();
+
+void codigoHijo1(int *pid2);
+void h1_SIGUSR1_handler();
+void h1_SIGUSR2_handler();
 void *funcionHilo();
-void pararBucle();
+void h1_SIGALRM_handler();
+
+void codigoHijo2(int *pid1);
+
 void ejercicio5();
 void atencion5();
+
 
 pid_t pidMonitor;
 int cont_threads;
@@ -34,20 +42,13 @@ int cont_5;
 int main(int argc, char** argv)
 {
 
-	if (argc < 2)
-	{
-		perror("\nFalta parámetros 1.\n");
-		exit(-1);
-	}
-	else
-	{
-		//averiguar pid monitor
-		pidMonitor = atoi(argv[1]);
-	}
+	extraerPidMonitor(argc, argv);
+	
+	// Ejercicio 1 y 2 desde el proceso principal
 	ejercicio1();
 	ejercicio2(pidMonitor);
 	
-	//ejercicio3
+	// comienzo del ejercicio3: creación de procesos hijos...
 	waitUser();
 	enviaSenal(pidMonitor, SIGUSR1);
 
@@ -62,7 +63,7 @@ int main(int argc, char** argv)
 	}
 	else if(pidHijo1 == 0)
 	{
-		codigoHijo1();
+		codigoHijo1(&pidHijo2);
 	}
 	else if((pidHijo2 = fork()) == -1)
 	{
@@ -71,11 +72,25 @@ int main(int argc, char** argv)
 	}
 	else if(pidHijo2 == 0)
 	{
-		codigoHijo2();
+		codigoHijo2(&pidHijo1);
 	}
 	else
 	{
 		codigoPadre(pidHijo1, pidHijo2);
+	}
+}
+
+void extraerPidMonitor(int argc, char *argv[])
+{
+	if (argc < 2)
+	{
+		perror("\nFalta parámetros 1.\n");
+		exit(-1);
+	}
+	else
+	{
+		//averiguar pid monitor
+		pidMonitor = atoi(argv[1]);
 	}
 }
 
@@ -103,53 +118,48 @@ int enviaSenal(int pid, int senal)
   return(codigoError);
 }
 
+/************* EJERCICIO 1 *************/
 void ejercicio1()
 {
 	waitUser();
+	printf("Realizando ejercicio 1...\n");
 	enviaSenal(pidMonitor, SIGUSR1);
 	sleep(5);
 }
 
+/************* EJERCICIO 2 *************/
 void ejercicio2(int pidMonitor)
 {
-	if(signal(SIGUSR2, recibirSenal2) == SIG_ERR)
+	if(signal(SIGUSR2, ej2_signal2_handler) == SIG_ERR)
 	{
 		perror("\nEjercicio 2: error al recibir la señal SIGUSR2.\n");
 		exit(-1);
 	}
 
 	waitUser();
+	printf("Realizando ejercicio 2...\n");
 	enviaSenal(pidMonitor, SIGUSR1);
 
 	sleep(3);
 }
 
-void recibirSenal2()
+void ej2_signal2_handler()
 {
 	printf("Señal SIGUSR2 recibida. Procediendo a realizar eco...\n");
 	enviaSenal(pidMonitor, SIGUSR2);
 	printf("Eco enviado.\n");
 }
 
+/************* EJERCICIO 3-6 *************/
+
+/************* CODIGO DEL PADRE *************/
+
 void codigoPadre(int pid1, int pid2)
 {
 	int pid, salida;
 	int numProcesos = 2;
 
-	//Ejercicio 4 (client)
-	waitUser();
-	sleep(22);
-
-	//Ejercicio 5 (client)
-	waitUser();
-	enviaSenal(pidMonitor, SIGUSR1);
-
-	//Ejercicio 6 (client)
-	waitUser();
-	enviaSenal(pidMonitor,SIGUSR1);
-	sleep(1);
-	enviaSenal(pid1,SIGUSR2);
-	enviaSenal(pid2,SIGUSR2);
+	// El proceso padre espera a que terminen lo 2 procesos hijo...
 	for(int p = 1; p <= numProcesos; p++)
 	{
 		pid = wait(&salida);
@@ -158,15 +168,23 @@ void codigoPadre(int pid1, int pid2)
 
 }
 
-void codigoHijo1()
+/************* CODIGO ASOCIADO AL HIJO 1 *************/
+
+void codigoHijo1(int *pid2)
 {
-	if(signal(SIGUSR2, crearHilo) == SIG_ERR)
+	if(signal(SIGUSR1, h1_SIGUSR1_handler) == SIG_ERR)
+	{
+		perror("Hijo 1: Error al recibir la señal SIGUSR2.\n");
+		exit(-1);
+	}
+	
+	if(signal(SIGUSR2, h1_SIGUSR2_handler) == SIG_ERR)
 	{
 		perror("Hijo 1: Error al recibir la señal SIGUSR2.\n");
 		exit(-1);
 	}
 
-	if(signal(SIGALRM, pararBucle) == SIG_ERR)
+	if(signal(SIGALRM, h1_SIGALRM_handler) == SIG_ERR)
 	{
 		perror("Hijo 1: Error al recibir la señal SIGALRM.\n");
 		exit(-1);
@@ -175,7 +193,7 @@ void codigoHijo1()
 	int hijo = 1;
 	printf("¡Hola! Soy el Hijo %d con PID =  %d.\n",hijo,  getpid());
 
-	//Ejercicio 3 (Hijo 1)
+	// EJERCICIO 3(Hijo 1)
 	pause();
 
 	//Ejercicio 4 (Hijo 1)
@@ -184,47 +202,24 @@ void codigoHijo1()
 	printf("Alarma preparada.\n");
 	while(!salir)
 	{
-		pause;
-	}
-
-	printf("Han pasado 20 segundos.\nSe han recibido %d señales SIGUSR2.\nSe han creado %d hilos.\n", cont_sigusr2, cont_threads);
-
-	pause();
-
-	exit(hijo);
-}
-
-void codigoHijo2()
-{
-	if(signal(SIGUSR1, ejercicio5) == SIG_ERR)
-	{
-		perror("Hijo 2: Error al recibir la señal SIGUSR1.\n");
-		exit(-1);
-	}
-
-	if(signal(SIGUSR2, atencion5) == SIG_ERR)
-	{
-		perror("Hijo 2: Error al recibir señal SIGUSR2.\n");
-		exit(-1);
-	}
-
-	int hijo = 2;
-	printf("¡Hola! Soy el Hijo %d con PID =  %d.\n", hijo, getpid());
-
-	enviaSenal(pidMonitor, SIGUSR1);
-
-	pause();
-	while(!salir)
-	{
 		pause();
 	}
 
+	printf("Han pasado 20 segundos.\nSe han recibido %d señales SIGUSR2.\nSe han creado %d hilos.\n", cont_sigusr2, cont_threads);
+	
+	// EJERCICIO 5
 	pause();
 
-	exit(hijo);
+	// EJERCICIO 6
+	exit(hijo);*/
 }
 
-void crearHilo()
+void h1_SIGUSR1_handler()
+{
+	printf("Realizando ejercicio 4...\n");
+}
+
+void h1_SIGUSR2_handler()
 {
 	pthread_t hilo;
 	int error;
@@ -238,13 +233,6 @@ void crearHilo()
 		exit(-1);
 	}
 	cont_threads++;
-
-	/*error = pthread_kill(hilo, NULL);
-	if(error)
-	{
-		perror("Error al esperar terminación del hilo");
-		exit(-1);
-	}*/
 }
 
 void *funcionHilo(void *hilo)
@@ -262,9 +250,48 @@ void *funcionHilo(void *hilo)
 	pthread_exit(NULL);
 }
 
-void pararBucle()
+void h1_SIGALRM_handler()
 {
 	salir = 1;
+}
+
+/************* CODIGO ASOCIADO AL HIJO 2 *************/
+
+void codigoHijo2(int *pid1)
+{
+	if(signal(SIGUSR1, ejercicio5) == SIG_ERR)
+	{
+		perror("Hijo 2: Error al recibir la señal SIGUSR1.\n");
+		exit(-1);
+	}
+
+	if(signal(SIGUSR2, atencion5) == SIG_ERR)
+	{
+		perror("Hijo 2: Error al recibir señal SIGUSR2.\n");
+		exit(-1);
+	}
+
+	int hijo = 2;
+	printf("¡Hola! Soy el Hijo %d con PID =  %d.\n", hijo, getpid());
+
+	// EJERCICIO 3 (HIJO 2) [Finalización]
+	enviaSenal(pidMonitor, SIGUSR1);
+	pause();
+	
+	// EJERCICIO 4 (HIJO 2)
+	waitUser();
+	enviaSenal(pid1, SIGUSR1);
+	
+	// EJERCICIO 5
+	waitUser();
+	ejercicio5();
+	while(!salir)
+	{
+		pause();
+	}
+	
+	// EJERCICIO 6
+	exit(hijo);*/
 }
 
 void ejercicio5()
@@ -281,10 +308,6 @@ void ejercicio5()
 		printf("Se han recibido %d señales en total.\n", cont_5);
 		salir = 1;
 		estado5++;
-	}
-	else if (estado5 == 2)
-	{
-		printf("\n");
 	}
 }
 
