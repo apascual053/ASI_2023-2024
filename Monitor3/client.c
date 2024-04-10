@@ -131,6 +131,8 @@ void ejercicio1(Secrets *secrets)
 	p = (int *)(shmaddr + sizeof(int));
 	int offset = *p;
 
+	printf("El offset es: %d\n", offset);
+
 	char *c;
 	c = (char *)(shmaddr + offset);
 
