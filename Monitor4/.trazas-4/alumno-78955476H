@@ -1,0 +1,175 @@
+1712734270: COMMAND <cp ./monitor4 /tmp/.monitor4>
+1712734270: COMMAND <cp -f /tmp/.monitor4 ./monitor4>
+1712734270: COMMAND <uname -a >> .trazas-4/alumno-78955476H>
+Linux vbox 5.13.0-44-generic #49~20.04.1-Ubuntu SMP Wed May 18 18:44:28 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+1712734270: COMMAND <ifconfig 2>&1 >> .trazas-4/alumno-78955476H>
+docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        ether 02:42:ab:0a:fd:21  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+        inet6 fe80::ac8d:9679:8cf6:94f6  prefixlen 64  scopeid 0x20<link>
+        ether 08:00:27:2e:43:1d  txqueuelen 1000  (Ethernet)
+        RX packets 119502  bytes 167056504 (167.0 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 16864  bytes 2556895 (2.5 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 1594  bytes 143188 (143.1 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 1594  bytes 143188 (143.1 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+        ether 52:54:00:19:91:75  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+1712734270: COMMAND <echo -n 'MACHINE-ID: ' >> .trazas-4/alumno-78955476H>
+MACHINE-ID: 1712734270: COMMAND <cat /etc/machine-id >> .trazas-4/alumno-78955476H>
+53f276fcf734404d9605b30579dff88b
+1712734281: COMMAND <cp ./monitor4 /tmp/.monitor4>
+1712734281: COMMAND <cp -f /tmp/.monitor4 ./monitor4>
+1712734281: COMMAND <uname -a >> .trazas-4/alumno-78955476H>
+Linux vbox 5.13.0-44-generic #49~20.04.1-Ubuntu SMP Wed May 18 18:44:28 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+1712734281: COMMAND <ifconfig 2>&1 >> .trazas-4/alumno-78955476H>
+docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        ether 02:42:ab:0a:fd:21  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+        inet6 fe80::ac8d:9679:8cf6:94f6  prefixlen 64  scopeid 0x20<link>
+        ether 08:00:27:2e:43:1d  txqueuelen 1000  (Ethernet)
+        RX packets 119506  bytes 167056753 (167.0 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 16870  bytes 2557318 (2.5 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 1594  bytes 143188 (143.1 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 1594  bytes 143188 (143.1 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+        ether 52:54:00:19:91:75  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+1712734281: COMMAND <echo -n 'MACHINE-ID: ' >> .trazas-4/alumno-78955476H>
+MACHINE-ID: 1712734281: COMMAND <cat /etc/machine-id >> .trazas-4/alumno-78955476H>
+53f276fcf734404d9605b30579dff88b
+1712734281: 
+La máquina está ya identificada.
+1712734281: RX: <OK Accepted>
+1712734284: TX: <CHECKPWD c93S3uo28XWTfW>
+1712734284: RX: <NEW>
+1712734284: 
+***************************************************
+El usuario no tiene un password público registrado.
+Por favor, confirme el password para darlo de alta.
+[5mEl password debe recordarlo para futuras sesiones.[0m
+Utilice una secuencia de caracteres personal privados.
+En el servidor se guardará una versión encriptada.
+Si no está de acuerdo con el password que ha utilizado
+interrumpa el proceso y comience de nuevo el registro.
+Posteriormente será más complicado modificarlo. Tendrá.
+que ponerse en contacto con el administrador:
+                 armando.ferro@ehu.eus
+***************************************************
+1712734287: TX: <CREATEPWD c93S3uo28XWTfW>
+1712734287: [5m
+LOGIN: Registrado password público <c93S3uo28XWTfW>.[0m
+1712734287: RX: <DONE>
+1712734287: 
+********************************************
+           INICIANDO SESION
+********************************************
+1712734287: TX: <UUID a1f8d087-f0bb-457b-854f-2dbfd7360ff0>
+1712734287: RX: <REGISTERED>
+1712734343: COMMAND <cp ./monitor4 /tmp/.monitor4>
+1712734343: COMMAND <cp -f /tmp/.monitor4 ./monitor4>
+1712734343: COMMAND <uname -a >> .trazas-4/alumno-78955476H>
+Linux vbox 5.13.0-44-generic #49~20.04.1-Ubuntu SMP Wed May 18 18:44:28 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+1712734343: COMMAND <ifconfig 2>&1 >> .trazas-4/alumno-78955476H>
+docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        ether 02:42:ab:0a:fd:21  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+        inet6 fe80::ac8d:9679:8cf6:94f6  prefixlen 64  scopeid 0x20<link>
+        ether 08:00:27:2e:43:1d  txqueuelen 1000  (Ethernet)
+        RX packets 119560  bytes 167070186 (167.0 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 16919  bytes 2564540 (2.5 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 1606  bytes 144248 (144.2 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 1606  bytes 144248 (144.2 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+        ether 52:54:00:19:91:75  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+1712734343: COMMAND <echo -n 'MACHINE-ID: ' >> .trazas-4/alumno-78955476H>
+MACHINE-ID: 1712734343: COMMAND <cat /etc/machine-id >> .trazas-4/alumno-78955476H>
+53f276fcf734404d9605b30579dff88b
+1712734343: 
+La máquina está ya identificada.
+1712734343: RX: <OK Accepted>
+1712734343: TX: <CHECKPWD c93S3uo28XWTfW>
+1712734343: RX: <OK>
+1712734343: 
+********************************************
+           INICIANDO SESION
+********************************************
+1712734343: TX: <UUID a1f8d087-f0bb-457b-854f-2dbfd7360ff0>
+1712734343: RX: <REGISTERED>
+1712734343: COMMAND <find . -type f -newer .signature -print 2>/dev/null | awk -v pwd="`pwd`/.trazas-4" '{ if(index($0,pwd) != 1) print }' > /tmp/.asitmp>
+1712734343: COMMAND <cp ./client.? .trazas-4>
+1712734343: COMMAND <tar zcf save_file-78955476H .trazas-4 > /dev/null>
+1712734343: COMMAND <echo "\nopen u017633.bi.ehu.es\nuser anonymous anonymous\npassive\ncd LAB2024/practica-4\nput save_file-78955476H 78955476H-10-4-9h32\n" | 	  ftp -n 2>&1 > /dev/null>
+1712734343: COMMAND <test -f .trazas-4/.clean_bck.tz && rm .trazas-4/.clean_bck.tz>
+1712734346: COMMAND <find . -type f -newer .signature -print 2>/dev/null | awk -v pwd="`pwd`/.trazas-4" '{ if(index($0,pwd) != 1) print }' > /tmp/.asitmp>
+1712734346: COMMAND <cp ./client.? .trazas-4>
+1712734346: COMMAND <tar zcf save_file-78955476H .trazas-4 > /dev/null>
+1712734346: COMMAND <echo "\nopen u017633.bi.ehu.es\nuser anonymous anonymous\npassive\ncd LAB2024/practica-4\nput save_file-78955476H 78955476H-10-4-9h32\n" | 	  ftp -n 2>&1 > /dev/null>
+1712734346: COMMAND <test -f .trazas-4/.clean_bck.tz && rm .trazas-4/.clean_bck.tz>
