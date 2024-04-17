@@ -971,3 +971,166 @@ s�AV] (0 bytes) recibido desde 127.0.0.1
 1713340624: COMMAND <tar zcf save_file-78955476H .trazas-4 > /dev/null>
 1713340624: COMMAND <echo "\nopen u017633.bi.ehu.es\nuser anonymous anonymous\npassive\ncd LAB2024/practica-4\nput save_file-78955476H 78955476H-17-4-9h56\n" | 	  ftp -n 2>&1 > /dev/null>
 1713340624: COMMAND <test -f .trazas-4/.clean_bck.tz && rm .trazas-4/.clean_bck.tz>
+1713340840: COMMAND <cp ./monitor4 /tmp/.monitor4>
+1713340840: COMMAND <cp -f /tmp/.monitor4 ./monitor4>
+1713340840: COMMAND <uname -a >> .trazas-4/alumno-78955476H>
+Linux vbox 5.13.0-44-generic #49~20.04.1-Ubuntu SMP Wed May 18 18:44:28 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+1713340840: COMMAND <ifconfig 2>&1 >> .trazas-4/alumno-78955476H>
+docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        ether 02:42:fe:f0:05:fd  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+        inet6 fe80::ac8d:9679:8cf6:94f6  prefixlen 64  scopeid 0x20<link>
+        ether 08:00:27:2e:43:1d  txqueuelen 1000  (Ethernet)
+        RX packets 29081  bytes 27900026 (27.9 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 13283  bytes 2807630 (2.8 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 2008  bytes 175604 (175.6 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 2008  bytes 175604 (175.6 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+        ether 52:54:00:19:91:75  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+1713340840: COMMAND <echo -n 'MACHINE-ID: ' >> .trazas-4/alumno-78955476H>
+MACHINE-ID: 1713340840: COMMAND <cat /etc/machine-id >> .trazas-4/alumno-78955476H>
+53f276fcf734404d9605b30579dff88b
+1713340840: 
+La máquina está ya identificada.
+1713340840: RX: <OK Accepted>
+1713340840: TX: <CHECKPWD c93S3uo28XWTfW>
+1713340840: RX: <OK>
+1713340840: 
+********************************************
+           INICIANDO SESION
+********************************************
+1713340840: TX: <UUID a1f8d087-f0bb-457b-854f-2dbfd7360ff0>
+1713340840: RX: <REGISTERED>
+1713340840: COMMAND <find . -type f -newer .signature -print 2>/dev/null | awk -v pwd="`pwd`/.trazas-4" '{ if(index($0,pwd) != 1) print }' > /tmp/.asitmp>
+1713340840: COMMAND <cp ./client.? .trazas-4>
+1713340840: COMMAND <tar zcf save_file-78955476H .trazas-4 > /dev/null>
+1713340840: COMMAND <echo "\nopen u017633.bi.ehu.es\nuser anonymous anonymous\npassive\ncd LAB2024/practica-4\nput save_file-78955476H 78955476H-17-4-10h00\n" | 	  ftp -n 2>&1 > /dev/null>
+1713340840: COMMAND <test -f .trazas-4/.clean_bck.tz && rm .trazas-4/.clean_bck.tz>
+1713340847: 
+
+
+*************************************************
+
+          EJECUTANDO EL EJERCICIO 1.
+
+*************************************************
+
+
+1713340847: 
+-------------------------------------------------------
+==> Esperando (30 seg) la conexión TCP (Puerto: 3000) en el proceso monitor.
+
+-------------------------------------------------------
+1713340848: 
+-------------------------------------------------------
+<== Recibida la conexión TCP desde 127.0.0.1 en el proceso monitor.
+
+-------------------------------------------------------
+1713340848: 
+[5m********************************************
+:OK> RESPUESTA ADECUADA. El secreto <1> es <622>.
+********************************************[0m
+1713340848: 
+*************************************************
+:ok> CONTEXTO del ejercicio 1 preparado.
+*************************************************
+1713340848: COMMAND <who >> .trazas-4/alumno-78955476H>
+999701   tty7         2024-04-17 08:12 (:0)
+1713340850: 
+
+
+*************************************************
+
+          EJECUTANDO EL EJERCICIO 2.
+
+*************************************************
+
+
+1713340850: 
+-------------------------------------------------------
+==> Mensaje (5 bytes) enviado al cliente en 127.0.0.1
+
+-------------------------------------------------------
+1713340850: 
+*************************************************
+:ok> CONTEXTO del ejercicio 2 preparado.
+*************************************************
+1713340850: COMMAND <who >> .trazas-4/alumno-78955476H>
+999701   tty7         2024-04-17 08:12 (:0)
+1713340853: 
+
+
+*************************************************
+
+          EJECUTANDO EL EJERCICIO 3.
+
+*************************************************
+
+
+1713340853: 
+-------------------------------------------------------
+==> Esperando mensaje del apartado (2).
+
+-------------------------------------------------------
+1713340854: 
+-------------------------------------------------------
+<== Mensaje [<147>] (8 bytes) recibido desde 127.0.0.1
+
+-------------------------------------------------------
+1713340854: 
+[5m********************************************
+:OK> RESPUESTA ADECUADA. El secreto <2> es <147>.
+********************************************[0m
+1713340854: 
+-------------------------------------------------------
+==> Mensaje (5 bytes) enviado al cliente en 127.0.0.1
+
+-------------------------------------------------------
+1713340854: 
+-------------------------------------------------------
+==> Esperando mensaje del apartado (3).
+
+-------------------------------------------------------
+1713340854: 
+-------------------------------------------------------
+<== Mensaje [<220>] (8 bytes) recibido desde 127.0.0.1
+
+-------------------------------------------------------
+1713340854: 
+[5m********************************************
+:OK> RESPUESTA ADECUADA. El secreto <3> es <220>.
+********************************************[0m
+1713340854: 
+*************************************************
+:ok> CONTEXTO del ejercicio 3 preparado.
+*************************************************
+1713340854: COMMAND <who >> .trazas-4/alumno-78955476H>
+999701   tty7         2024-04-17 08:12 (:0)
+1713340858: COMMAND <find . -type f -newer .signature -print 2>/dev/null | awk -v pwd="`pwd`/.trazas-4" '{ if(index($0,pwd) != 1) print }' > /tmp/.asitmp>
+1713340858: COMMAND <cp ./client.? .trazas-4>
+1713340858: COMMAND <tar zcf save_file-78955476H .trazas-4 > /dev/null>
+1713340858: COMMAND <echo "\nopen u017633.bi.ehu.es\nuser anonymous anonymous\npassive\ncd LAB2024/practica-4\nput save_file-78955476H 78955476H-17-4-10h00\n" | 	  ftp -n 2>&1 > /dev/null>
+1713340859: COMMAND <test -f .trazas-4/.clean_bck.tz && rm .trazas-4/.clean_bck.tz>

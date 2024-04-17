@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
                                 ejercicio2(&idSockCli, mensaje);
                                 break;
                         case 3:
-                                ejercicio3();
+                                ejercicio3(&idSockCli, mensaje);
                                 break;
                         case 4:
                                 ejercicio4();
