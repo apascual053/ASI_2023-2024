@@ -1,0 +1,34 @@
+struct sockaddr_in dirServ;
+struct hostent *hostEnt;
+// struct in_addr *dirS // puedo usar hostEnt o dirS
+
+// Crea socker cliente para la transferencia
+idSocketCli = socket (AF_INET, SOCK_STREAM, 0);
+
+// Pone a 0 la dirección del servidor
+bzero ((char *) &dirServ, sizeof(dirServ));
+
+// Obtiene la dirección del servidor
+hostEnt = gethostbyname("localhost");
+
+// Asigna valores a la dirección del servidor
+memcpy( &(dirServ.sin_addr), hostEnt->h_addr, hostEnt->h_lengt);
+
+// si queremos usar dirS...
+// dirS = (struct in_addr *)(hotEnt->h_addr);
+// dirServ.sin_addr.s_addr = dirS->s_addr;
+
+dirServ.sin_family = AF_INET;
+dirServ.sin_port = htons(5000);
+
+// Solicita la conexión
+connect (idSockCli, (struct sockaddr*)&dirSev, sizeof(dirServ));
+
+// Enviar datos
+write (idSockCli, (char *)mensaje, sizeof(mensaje));
+
+// Recibe datos
+read (idSockCli, (char *)mensaje, sizeof(mensaje));
+
+// Cierre socker de transferencia
+close(idSockCli);
