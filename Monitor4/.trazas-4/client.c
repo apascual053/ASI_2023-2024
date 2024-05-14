@@ -12,14 +12,14 @@
 int menuser();
 void ejercicio1(int *idSockCli);
 void ejercicio2(int *idSockCli, char *mensaje);
-void ejercicio3();
-void ejercicio4();
-void ejercicio5();
-void ejercicio6();
-void ejercicio7();
+void ejercicio3(int *idSockCli, char *mensaje);
+void ejercicio4(int *idSockServ, int *idSockCli);
+void ejercicio5(int *idSockCli);
+void ejercicio6(int *idSockCli);
+void ejercicio7(int *idSockServ, int *idSockCli);
 
 int main(int argc, char** argv) {
-        int opt, idSockCli;
+        int opt, idSockCli, idSockServ;
 	char mensaje[MAX_TAM];
 
         do{
@@ -39,16 +39,16 @@ int main(int argc, char** argv) {
                                 ejercicio3(&idSockCli, mensaje);
                                 break;
                         case 4:
-                                ejercicio4();
+                                ejercicio4(&idSockServ, &idSockCli);
                                 break;
                         case 5:
-				ejercicio5();
+				ejercicio5(&idSockCli);
 				break;
                         case 6:
-				ejercicio6();
+				ejercicio6(&idSockCli);
                                 break;
                         case 7:
-				ejercicio7();
+				ejercicio7(&idSockServ, &idSockCli);
                                 break;
                 }
         }while(1);
@@ -85,7 +85,7 @@ int menuser()
                         {
                                 printf("\nRealizando el ejercicio %d...\n", opt);
                         } else {
-                                printf("Saliendo del cliente...\n");
+                                printf("Agur\n");
                         }
                 } else {
                         printf("\nEl valor introducido no es valido. Intentelo de nuevo.\n");
@@ -130,7 +130,94 @@ void ejercicio3(int *idSockCli, char *mensaje)
 	printf("El secreto tres recibido: %s", mensaje);
 	write(*idSockCli, (char *)mensaje, sizeof(mensaje));
 }
-void ejercicio4(){}
-void ejercicio5(){}
-void ejercicio6(){}
-void ejercicio7(){}
+
+void ejercicio4(int *idSockServ, int *idSockCli)
+{
+	struct sockaddr_in dirServ, dirCli;
+	struct hostent *hostEnt;
+	socklen_t tamDirCli = sizeof(dirCli);
+
+	*idSockServ = socket(AF_INET, SOCK_STREAM, 0);
+
+	bzero((char *) &dirServ, sizeof(dirServ));
+
+	hostEnt = gethostbyname("localhost");
+	memcpy(&(dirServ.sin_addr), hostEnt->h_addr, hostEnt->h_length);
+
+	dirServ.sin_family = AF_INET;
+	dirServ.sin_port = htons(3001);
+
+	bind(*idSockServ, (struct sockaddr *) &dirServ, sizeof(dirServ));
+
+	listen(*idSockServ, 1);
+	printf("Esperando conexión en el puerto 3001...\n");
+
+	*idSockCli = accept(*idSockServ, (struct sockaddr *) &dirCli, &tamDirCli);
+	printf("Conexión aceptada.\n");
+
+}
+
+void ejercicio5(int *idSockCli)
+{
+	char mensaje [MAX_TAM];
+
+	int n = read(*idSockCli, (char *)mensaje, sizeof(mensaje));
+	mensaje[n] = '\0';
+	printf("El secreto 5 es: %s\n", mensaje);
+
+	write(*idSockCli, (char *)mensaje, sizeof(mensaje));
+	printf("Secreto 5 enviado de vuelta.\n");
+}
+
+void ejercicio6(int *idSockCli)
+{
+	struct sockaddr_in dirServ;
+	struct hostent *hostEnt;
+	socklen_t tamDirServ = sizeof(dirServ);
+
+	char mensaje[] = "HOLA!";
+
+	*idSockCli = socket(AF_INET, SOCK_DGRAM, 0);
+
+	bzero((char *) &dirServ, sizeof(dirServ));
+	
+	hostEnt = gethostbyname("localhost");
+	memcpy(&(dirServ.sin_addr), hostEnt->h_addr, hostEnt->h_length);
+
+	dirServ.sin_family = AF_INET;
+	dirServ.sin_port = htons(3000);
+
+	sendto(*idSockCli, mensaje, strlen(mensaje), 0, (struct sockaddr *)&dirServ, tamDirServ);
+	printf("Saludo enviado al servidor.\n");
+}
+
+void ejercicio7(int *idSockServ, int *idSockCli)
+{
+	struct sockaddr_in dirServ, dirCli;
+	struct hostent *hostEnt;
+	socklen_t tamDirCli = sizeof(dirCli);
+
+	char mensaje[MAX_TAM];
+
+	*idSockCli = socket(AF_INET, SOCK_DGRAM, 0);
+
+	bzero((char *) &dirServ, sizeof(dirServ));
+
+        hostEnt = gethostbyname("localhost");
+        memcpy(&(dirServ.sin_addr), hostEnt->h_addr, hostEnt->h_length);
+	
+        dirServ.sin_family = AF_INET;
+        dirServ.sin_port = htons(3001);
+
+	bind(*idSockCli, (struct sockaddr *) &dirServ, sizeof(dirServ));
+	printf("Esperando mensajes en el puerto 3001...\n");
+
+	ssize_t n = recvfrom(*idSockCli, mensaje, MAX_TAM, 0, (struct sockaddr *)&dirCli, &tamDirCli);		
+	mensaje[n] = '\0';
+	printf("Mensaje recibido: %s\n", mensaje);
+		
+	sendto(*idSockCli, mensaje, strlen(mensaje), 0, (struct sockaddr *)&dirCli, tamDirCli);
+        printf("Eco enviado.\n");
+
+	close(*idSockCli);
+}
