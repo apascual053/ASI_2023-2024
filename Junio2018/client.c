@@ -47,14 +47,37 @@ struct msgq{
 #define DEV_DUMP 1500		// Posición del dispositivo del que se pide el dump
 
 
-void hijo1();
-void hijo2();
-void padre();
+void hijo1(char *start, int sem_id, struct sembuf *up, struct sembuf *down);
+void padre(char *start, int sem_id, struct sembuf *up, struct sembuf *down);
+void signal_handler();
+
+int signals;
 
 int main(int argc, char *argv[])
 {
 	int pidH1, pidH2;
         
+        // CREAR LA MEMORIA COMPARTIDA (EJERCICIO 2)
+        int shm_id;
+        if((shm_id = shmget(CLAVE, SIZE_SHM, 0666 | IPC_CREAT)) == -1)
+        {
+                perror("Error al crear memoria compartida: ");
+                exit(-1);
+        }
+        char *start = (char *)shmat(shm_id, NULL, 0);
+        
+        // CREAR LOS SEMÁFOROS (EJERCICIO 4)
+        int sem_id = semget(CLAVE, 5, 0666 | IPC_CREAT);
+        struct sembuf up;
+        struct sembuf down;
+
+        up.sem_flg = 0;
+        up.sem_op = 1;
+
+        down.sem_flg = 0;
+        down.sem_op = -1;
+    
+        // reparto de tareas 
         if ((pidH1 = fork()) == -1)
         {
             perror("Error al crear el hijo 1.\n");
@@ -62,27 +85,18 @@ int main(int argc, char *argv[])
         }
         else if (pidH1 == 0)
         {
-            hijo1();
-        }
-        else if((pidH2 = fork()) == -1)
-        {
-            perror("Error al crear el hijo 2.\n");
-            exit(-1);
-        }
-        else if(pidH2 == 0)
-        {
-            hijo2();
+            hijo1(start, sem_id, &up, &down);
         }
         else
         {
-            padre();
+            padre(start, sem_id, &up, &down);
         }
 }
 
-void hijo1()
+void hijo1(char *start, int sem_id, struct sembuf *up, struct sembuf *down)
 {
     
-    // CONFIGURAR EL SOCKET DEL SERVIDOR UDP
+    // CONFIGURAR EL SOCKET DEL SERVIDOR UDP (EJERCICIO 1)
     struct sockaddr_in listen_addr, monitor_addr;
     struct hostent *hostEnt;
     socklen_t tamMonitorAddr = sizeof(monitor_addr);
@@ -100,17 +114,7 @@ void hijo1()
     bind(idSock, (struct sockaddr *) &listen_addr, sizeof(listen_addr));
     printf("Esperando mensajes en el puerto 3001...\n");
     
-    // CREAR LA MEMORIA COMPARTIDA
-    int shm_id;
-    if((shm_id = shmget(CLAVE, SIZE_SHM, 0666 | IPC_CREAT)) == -1)
-    {
-            perror("Error al crear memoria compartida: ");
-            exit(-1);
-    }
-    char *start = (char *)shmat(shm_id, NULL, 0);
-    
     // BUCLE PRINCIPAL DEL HIJO 1
-    
     struct shm_dev_reg *dispositivo;
     
     while(1)
@@ -149,8 +153,15 @@ void hijo1()
             
             printf("Nuevo mensaje recibido: W %d %d %d\n", num_dev, cont, valor);
             
+            up->sem_num = num_dev;
+            down->sem_num = num_dev;
+
+            semop(sem_id, down, 1);
+            
             dispositivo = (struct shm_dev_reg *)(start +sizeof(struct shm_dev_reg)*num_dev);
             dispositivo->contador[cont] = valor;
+            
+            semop(sem_id, up, 1);
 
             mensaje[0] = 'O';
             memcpy(mensaje + 1, &num_dev, sizeof(int));
@@ -168,8 +179,15 @@ void hijo1()
             
             printf("Nuevo mensaje recibido: R %d %d\n", num_dev, cont);
             
+            up->sem_num = num_dev;
+            down->sem_num = num_dev;
+
+            semop(sem_id, down, 1);
+            
             dispositivo = (struct shm_dev_reg *)(start +sizeof(struct shm_dev_reg)*num_dev);
             valor = dispositivo->contador[cont];
+            
+            semop(sem_id, up, 1);
 
             mensaje[0] = 'O';
             memcpy(mensaje + 1, &num_dev, sizeof(int));
@@ -182,23 +200,80 @@ void hijo1()
 
     }
     
-    pause();
-}
-
-void hijo2()
-{
+    close(idSock);
     return;
 }
 
-
-void padre()
+void padre(char *start, int sem_id, struct sembuf *up, struct sembuf *down)
 {
+    if(signal(SIGUSR1, signal_handler) == SIG_ERR)
+    {
+            perror("\nError al recibir la señal SIGUSR1.\n");
+            exit(-1);
+    }
+    
+    // CREAR COLA DE MENSAJES (EJERCICIO 5)
+    int msg_id = msgget(CLAVE, 0666 | IPC_CREAT);
+    struct msgq msg;
+    
+    while(1) // bucle infinito
+    {
+        pause();
+        if(signal > 0) //en caso de haber recibido alguna señal SIGUSR1
+        {
+            int num_dev;
+            memcpy(&num_dev, start + DEV_DUMP, sizeof(int));
+            if(num_dev == -1)
+            {
+                for(int i = 0; i < 5; i++)
+                {
+                    up->sem_num = i;
+                    down->sem_num = i;
+
+                    semop(sem_id, down, 1);
+
+                    msg.type = i + MSQ_TYPE_BASE;
+                    msg.dispositivo = *(struct shm_dev_reg *)(start + i*sizeof(struct shm_dev_reg));
+
+                    semop(sem_id, up, 1);
+
+                    msgsnd(msg_id, &msg, sizeof(msg.dispositivo), 0);
+
+                    signals = signals -1;
+                }
+
+            }
+            else
+            {
+                up->sem_num = num_dev;
+                down->sem_num = num_dev;
+
+                semop(sem_id, down, 1);
+
+                msg.type = num_dev + MSQ_TYPE_BASE;
+                msg.dispositivo = *(struct shm_dev_reg *)(start + num_dev*sizeof(struct shm_dev_reg));
+
+                semop(sem_id, up, 1);
+
+                msgsnd(msg_id, &msg, sizeof(msg.dispositivo), 0);
+
+                signals = signals -1;
+            }
+        }
+    }
+    
     int hijos = 2, salida;
     
     for(int i = 0; i < hijos; i++)
     {
         printf("Proceso con PID = %d terminado.\n", wait(&salida));
     }
+}
+
+void signal_handler()
+{
+    signals++;
+    printf("Recibida señal SIGUSR1.\n");
 }
 
 
